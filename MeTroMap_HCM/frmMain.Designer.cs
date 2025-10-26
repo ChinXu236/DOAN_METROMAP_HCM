@@ -62,6 +62,8 @@
             // 
             // mniHeThong
             // 
+            this.mniHeThong.Checked = true;
+            this.mniHeThong.CheckState = System.Windows.Forms.CheckState.Checked;
             this.mniHeThong.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mniDangXuat});
             this.mniHeThong.ForeColor = System.Drawing.Color.White;
