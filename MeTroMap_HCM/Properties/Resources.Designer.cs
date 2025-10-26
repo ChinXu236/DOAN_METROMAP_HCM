@@ -59,5 +59,15 @@ namespace MeTroMap_HCM.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap backgroundFrmMain {
+            get {
+                object obj = ResourceManager.GetObject("backgroundFrmMain", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
