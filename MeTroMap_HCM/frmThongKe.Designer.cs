@@ -2,70 +2,103 @@
 {
     partial class frmThongKe
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
-            {
                 components.Dispose();
-            }
             base.Dispose(disposing);
         }
 
         #region Windows Form Designer generated code
-
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            this.chartThongKe = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            ((System.ComponentModel.ISupportInitialize)(this.chartThongKe)).BeginInit();
-            this.SuspendLayout();
-            // 
-            // chartThongKe
-            // 
-            chartArea1.Name = "ChartArea1";
-            this.chartThongKe.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chartThongKe.Legends.Add(legend1);
-            this.chartThongKe.Location = new System.Drawing.Point(109, 74);
-            this.chartThongKe.Name = "chartThongKe";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.chartThongKe.Series.Add(series1);
-            this.chartThongKe.Size = new System.Drawing.Size(300, 300);
-            this.chartThongKe.TabIndex = 0;
-            this.chartThongKe.Text = "chart1";
-            // 
-            // frmThongKe
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.chartThongKe);
-            this.Name = "frmThongKe";
-            this.Text = "frmThongKe";
-            ((System.ComponentModel.ISupportInitialize)(this.chartThongKe)).EndInit();
-            this.ResumeLayout(false);
+            this.lblThang = new System.Windows.Forms.Label();
+            this.cboThang = new System.Windows.Forms.ComboBox();
+            this.btnThongKe = new System.Windows.Forms.Button();
+            this.dgvDoanhThu = new System.Windows.Forms.DataGridView();
+            this.colTuyen = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colSoVe = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colDoanhThu = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lblTong = new System.Windows.Forms.Label();
+            this.txtTongDoanhThu = new System.Windows.Forms.TextBox();
 
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDoanhThu)).BeginInit();
+            this.SuspendLayout();
+
+            // lblThang
+            this.lblThang.AutoSize = true;
+            this.lblThang.Location = new System.Drawing.Point(30, 30);
+            this.lblThang.Text = "Chọn tháng:";
+
+            // cboThang
+            this.cboThang.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboThang.Location = new System.Drawing.Point(120, 27);
+            this.cboThang.Width = 100;
+
+            // btnThongKe
+            this.btnThongKe.Text = "Thống kê";
+            this.btnThongKe.Location = new System.Drawing.Point(250, 25);
+            this.btnThongKe.Click += new System.EventHandler(this.btnThongKe_Click);
+
+            // dgvDoanhThu
+            this.dgvDoanhThu.AllowUserToAddRows = false;
+            this.dgvDoanhThu.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvDoanhThu.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+                this.colTuyen, this.colSoVe, this.colDoanhThu });
+            this.dgvDoanhThu.Location = new System.Drawing.Point(30, 70);
+            this.dgvDoanhThu.Size = new System.Drawing.Size(500, 200);
+            this.dgvDoanhThu.ReadOnly = true;
+
+            // colTuyen
+            this.colTuyen.HeaderText = "Tuyến";
+            this.colTuyen.DataPropertyName = "TenTuyen";
+
+            // colSoVe
+            this.colSoVe.HeaderText = "Số vé bán";
+            this.colSoVe.DataPropertyName = "SoVe";
+
+            // colDoanhThu
+            this.colDoanhThu.HeaderText = "Doanh thu (VNĐ)";
+            this.colDoanhThu.DataPropertyName = "DoanhThu";
+
+            // lblTong
+            this.lblTong.AutoSize = true;
+            this.lblTong.Location = new System.Drawing.Point(30, 290);
+            this.lblTong.Text = "Tổng doanh thu:";
+
+            // txtTongDoanhThu
+            this.txtTongDoanhThu.Location = new System.Drawing.Point(150, 287);
+            this.txtTongDoanhThu.ReadOnly = true;
+            this.txtTongDoanhThu.Width = 150;
+
+            // frmThongKe
+            this.ClientSize = new System.Drawing.Size(580, 340);
+            this.Controls.Add(this.lblThang);
+            this.Controls.Add(this.cboThang);
+            this.Controls.Add(this.btnThongKe);
+            this.Controls.Add(this.dgvDoanhThu);
+            this.Controls.Add(this.lblTong);
+            this.Controls.Add(this.txtTongDoanhThu);
+            this.Text = "Thống kê doanh thu theo tháng";
+            this.Load += new System.EventHandler(this.frmThongKe_Load);
+
+            ((System.ComponentModel.ISupportInitialize)(this.dgvDoanhThu)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
         }
 
         #endregion
 
-        private System.Windows.Forms.DataVisualization.Charting.Chart chartThongKe;
+        private System.Windows.Forms.Label lblThang;
+        private System.Windows.Forms.ComboBox cboThang;
+        private System.Windows.Forms.Button btnThongKe;
+        private System.Windows.Forms.DataGridView dgvDoanhThu;
+        private System.Windows.Forms.Label lblTong;
+        private System.Windows.Forms.TextBox txtTongDoanhThu;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colTuyen;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colSoVe;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colDoanhThu;
     }
 }

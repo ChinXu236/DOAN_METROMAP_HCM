@@ -60,7 +60,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Dijkstra.cs" />
+    <Compile Include="frmDatVe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmDatVe.Designer.cs">
+      <DependentUpon>frmDatVe.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmGa.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -73,11 +78,29 @@
     <Compile Include="frmLienKet.Designer.cs">
       <DependentUpon>frmLienKet.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmLogin.Designer.cs">
+      <DependentUpon>frmLogin.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmTaiKhoanNguoiDung.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTaiKhoanNguoiDung.Designer.cs">
+      <DependentUpon>frmTaiKhoanNguoiDung.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmTaiKhoanNhanVien.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmTaiKhoanNhanVien.Designer.cs">
+      <DependentUpon>frmTaiKhoanNhanVien.cs</DependentUpon>
     </Compile>
     <Compile Include="frmThongKe.cs">
       <SubType>Form</SubType>
@@ -97,19 +120,16 @@
     <Compile Include="frmTuyen.Designer.cs">
       <DependentUpon>frmTuyen.cs</DependentUpon>
     </Compile>
-    <Compile Include="model\Ga.cs" />
-    <Compile Include="model\LichTrinh.cs" />
-    <Compile Include="model\LienKet.cs" />
-    <Compile Include="model\Model1.cs" />
-    <Compile Include="model\Tuyen.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TroGiup.cs" />
     <EmbeddedResource Include="frmGa.resx">
       <DependentUpon>frmGa.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmLienKet.resx">
       <DependentUpon>frmLienKet.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmLogin.resx">
+      <DependentUpon>frmLogin.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
@@ -146,6 +166,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MetroMap_HCM.BUS\MetroMap_HCM.BUS.csproj">
+      <Project>{88cd88bc-dcea-43fa-8b67-bb06c5143cab}</Project>
+      <Name>MetroMap_HCM.BUS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MetroMap_HCM.DAL\MetroMap_HCM.DAL.csproj">
+      <Project>{af1dcf5b-afff-4644-83ae-902af9eb3fe2}</Project>
+      <Name>MetroMap_HCM.DAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

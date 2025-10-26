@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using MetroMap_HCM.model;
+using MetroMap_HCM.DAL;
 
 namespace MetroMap_HCM
 {

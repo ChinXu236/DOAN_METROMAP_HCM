@@ -1,56 +1,84 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Configuration;
-using System.Data.SqlClient;
-
 
 namespace MetroMap_HCM
 {
     public partial class frmMain : Form
     {
-        public frmMain()
+        private readonly string _userRole;
+
+        public frmMain(string userRole)
         {
             InitializeComponent();
+            _userRole = userRole;
         }
 
-
-        private void mnuQuanLyGa_Click(object sender, EventArgs e)
+        private void frmMain_Load(object sender, EventArgs e)
         {
-            frmGa f = new frmGa();
-            f.ShowDialog();   // mở FormGa
+            lblWelcome.Text = $"Xin chào, bạn đang đăng nhập với quyền: {_userRole}";
+
+            if (_userRole == "User")
+            {
+                // Ẩn các chức năng quản lý và thống kê cho người dùng
+                mniGa.Visible = false;
+                mniTuyen.Visible = false;
+                mniLienKet.Visible = false;
+                mniThongKe.Visible = false;
+            }
         }
 
-        private void mnuQuanLyTuyen_Click(object sender, EventArgs e)
+        private void OpenChildForm(Form childForm)
         {
-            frmTuyen f = new frmTuyen();
-            f.ShowDialog();
+            pnlMain.Controls.Clear();
+            childForm.TopLevel = false;
+            childForm.Dock = DockStyle.Fill;
+            pnlMain.Controls.Add(childForm);
+            childForm.Show();
         }
 
-        private void mnuQuanLyLienKet_Click(object sender, EventArgs e)
+        private void mniGa_Click(object sender, EventArgs e)
         {
-            frmLienKet f = new frmLienKet();
-            f.ShowDialog();
+            OpenChildForm(new frmGa());
         }
 
-        private void mnuTimDuong_Click(object sender, EventArgs e)
+        private void mniTuyen_Click(object sender, EventArgs e)
         {
-            frmTimDuong f = new frmTimDuong();
-            f.ShowDialog();
+            OpenChildForm(new frmTuyen());
         }
 
-        private void mnuThongKe_Click(object sender, EventArgs e)
+        private void mniLienKet_Click(object sender, EventArgs e)
         {
-            frmThongKe f = new frmThongKe();
-            f.ShowDialog();
+            OpenChildForm(new frmLienKet());
         }
 
+        private void mniTimDuong_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new frmTimDuong());
+        }
 
+        private void mniDatVe_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new frmDatVe());
+        }
+
+        private void mniThongKe_Click(object sender, EventArgs e)
+        {
+            OpenChildForm(new frmThongKe());
+        }
+
+        private void mniDangXuat_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show("Bạn có chắc muốn đăng xuất?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                this.Hide();
+                frmLogin login = new frmLogin();
+                if (login.ShowDialog() == DialogResult.OK)
+                {
+                    frmMain main = new frmMain(login.UserRole);
+                    main.Show();
+                }
+                this.Close();
+            }
+        }
     }
 }

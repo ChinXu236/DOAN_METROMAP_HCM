@@ -1,43 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Windows.Forms.DataVisualization.Charting;
+using MetroMap_HCM.BUS;
 
 namespace MetroMap_HCM
 {
     public partial class frmThongKe : Form
     {
+        private readonly ThongKeService _service = new ThongKeService();
+
         public frmThongKe()
         {
             InitializeComponent();
         }
 
-        private void FormThongKe_Load(object sender, EventArgs e)
+        private void frmThongKe_Load(object sender, EventArgs e)
         {
-            string sql = @"
-                SELECT t.TenTuyen, COUNT(g.MaGa) AS SoGa
-                FROM Tuyen t
-                JOIN Ga g ON 1=1 -- chỗ này em chỉnh theo cách em thiết kế quan hệ
-                GROUP BY t.TenTuyen";
+            cboThang.DataSource = Enumerable.Range(1, 12).ToList();
+        }
 
-            DataTable dt = TroGiup.LayBang(sql);
+        private void btnThongKe_Click(object sender, EventArgs e)
+        {
+            int thang = (int)cboThang.SelectedItem;
+            var ds = _service.GetDoanhThuTheoThang(thang);
 
-            chartThongKe.Series.Clear();
-            Series series = new Series("So Ga");
-            series.ChartType = SeriesChartType.Column;
-
-            foreach (DataRow row in dt.Rows)
-            {
-                series.Points.AddXY(row["TenTuyen"].ToString(), Convert.ToInt32(row["SoGa"]));
-            }
-
-            chartThongKe.Series.Add(series);
+            dgvDoanhThu.DataSource = ds;
+            txtTongDoanhThu.Text = ds.Sum(x => x.DoanhThu).ToString("N0");
         }
     }
 }

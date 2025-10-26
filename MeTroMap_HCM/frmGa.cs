@@ -1,179 +1,156 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using MetroMap_HCM.BUS;
+using MetroMap_HCM.DAL;
 
 namespace MetroMap_HCM
 {
     public partial class frmGa : Form
     {
+        private readonly GaService _gaService = new GaService();
+        private readonly TuyenService _tuyenService = new TuyenService();
+
         public frmGa()
         {
             InitializeComponent();
         }
 
-        private void FormGa_Load(object sender, EventArgs e)
+        private void frmGa_Load(object sender, EventArgs e)
         {
-            hienThiGa();
+            LoadTuyenCombo();
+            LoadDanhSachGa();
         }
 
-        private void hienThiGa()
+        private void LoadTuyenCombo()
         {
-            dgvGa.DataSource = TroGiup.LayBang("SELECT MaGa, TenGa FROM Ga ORDER BY MaGa");
+            var tuyens = _tuyenService.GetAll();
+            cboTuyen.DataSource = tuyens;
+            cboTuyen.DisplayMember = "TenTuyen";
+            cboTuyen.ValueMember = "MaTuyen";
+        }
+
+        private void LoadDanhSachGa()
+        {
+            dgvGa.DataSource = _gaService.GetAll()
+                .Select(g => new
+                {
+                    g.MaGa,
+                    g.TenGa,
+                    g.MaTuyen,
+                    TenTuyen = g.Tuyen.TenTuyen,
+                    g.ThuTu
+                }).ToList();
+        }
+
+        private void dgvGa_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                var row = dgvGa.Rows[e.RowIndex];
+                txtMaGa.Text = row.Cells["MaGa"].Value.ToString();
+                txtTenGa.Text = row.Cells["TenGa"].Value.ToString();
+                cboTuyen.SelectedValue = row.Cells["MaTuyen"].Value.ToString();
+                txtThuTu.Text = row.Cells["ThuTu"].Value?.ToString();
+            }
         }
 
         private void btnThem_Click(object sender, EventArgs e)
         {
-            string ma = txtMaGa.Text.Trim();
-            string ten = txtTenGa.Text.Trim();
-
-            if (string.IsNullOrEmpty(ma) || string.IsNullOrEmpty(ten))
+            try
             {
-                MessageBox.Show("Nhap day du Ma ga va Ten ga");
-                return;
+                var g = new Ga
+                {
+                    MaGa = txtMaGa.Text.Trim(),
+                    TenGa = txtTenGa.Text.Trim(),
+                    MaTuyen = cboTuyen.SelectedValue.ToString(),
+                    ThuTu = int.TryParse(txtThuTu.Text, out int tt) ? tt : (int?)null
+                };
+
+                _gaService.Add(g);
+                LoadDanhSachGa();
+                MessageBox.Show("Thêm ga thành công!");
+                ClearInput();
             }
-
-            TroGiup.ThucThi("INSERT INTO Ga VALUES(@ma,@ten)",
-                new SqlParameter("@ma", ma),
-                new SqlParameter("@ten", ten));
-
-            hienThiGa();
-            // Xóa nội dung textbox sau khi thêm thành công
-            txtMaGa.Text = string.Empty;
-            txtTenGa.Text = string.Empty;
-            txtMaGa.Focus();
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi: {ex.Message}");
+            }
         }
 
         private void btnSua_Click(object sender, EventArgs e)
         {
-            string ma = txtMaGa.Text.Trim();
-            string ten = txtTenGa.Text.Trim();
+            try
+            {
+                var g = new Ga
+                {
+                    MaGa = txtMaGa.Text.Trim(),
+                    TenGa = txtTenGa.Text.Trim(),
+                    MaTuyen = cboTuyen.SelectedValue.ToString(),
+                    ThuTu = int.TryParse(txtThuTu.Text, out int tt) ? tt : (int?)null
+                };
 
-            TroGiup.ThucThi("UPDATE Ga SET TenGa=@ten WHERE MaGa=@ma",
-                new SqlParameter("@ten", ten),
-                new SqlParameter("@ma", ma));
-
-            hienThiGa();
+                _gaService.Update(g);
+                LoadDanhSachGa();
+                MessageBox.Show("Sửa thông tin ga thành công!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi: {ex.Message}");
+            }
         }
 
         private void btnXoa_Click(object sender, EventArgs e)
         {
-            string ma = txtMaGa.Text.Trim();
-
-            if (string.IsNullOrEmpty(ma))
+            if (string.IsNullOrWhiteSpace(txtMaGa.Text))
             {
-                MessageBox.Show("Vui long chon mot ga de xoa");
+                MessageBox.Show("Vui lòng chọn ga cần xóa!");
                 return;
             }
 
-            // Kiểm tra lại giá trị MaGa có tồn tại trong DataGridView không
-            bool maGaTonTai = false;
-            foreach (DataGridViewRow row in dgvGa.Rows)
+            var confirm = MessageBox.Show("Bạn có chắc muốn xóa ga này?",
+                "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (confirm == DialogResult.Yes)
             {
-                if (row.Cells["MaGa"].Value != null && row.Cells["MaGa"].Value.ToString() == ma)
-                {
-                    maGaTonTai = true;
-                    break;
-                }
+                _gaService.Delete(txtMaGa.Text.Trim());
+                LoadDanhSachGa();
+                ClearInput();
+                MessageBox.Show("Xóa ga thành công!");
             }
-            if (!maGaTonTai)
-            {
-                MessageBox.Show($"Không tìm thấy mã ga '{ma}' trong danh sách.");
-                return;
-            }
-
-            // Kiểm tra ga có trong bảng LienKet không
-            var soLienKet = TroGiup.LayGiaTri(
-                "SELECT COUNT(*) FROM LienKet WHERE Ga1=@ma OR Ga2=@ma",
-                new SqlParameter("@ma", ma)
-            );
-
-            if (Convert.ToInt32(soLienKet) > 0)
-            {
-                DialogResult dr = MessageBox.Show(
-                    "Ga nay dang co lien ket. Ban co muon xoa ca cac lien ket khong?",
-                    "Xac nhan",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Warning
-                );
-
-                if (dr == DialogResult.Yes)
-                {
-                    TroGiup.ThucThi("DELETE FROM LienKet WHERE Ga1=@ma OR Ga2=@ma",
-                        new SqlParameter("@ma", ma));
-                    int soDongXoa = TroGiup.ThucThi("DELETE FROM Ga WHERE MaGa=@ma",
-                        new SqlParameter("@ma", ma));
-                    if (soDongXoa > 0)
-                        MessageBox.Show("Da xoa ga va cac lien ket lien quan.");
-                    else
-                        MessageBox.Show("Không xóa được ga. Có thể mã ga không tồn tại hoặc bị lỗi ràng buộc dữ liệu.");
-                }
-                else
-                {
-                    MessageBox.Show("Da huy thao tac xoa.");
-                    return;
-                }
-            }
-            else
-            {
-                int soDongXoa = TroGiup.ThucThi("DELETE FROM Ga WHERE MaGa=@ma",
-                    new SqlParameter("@ma", ma));
-                if (soDongXoa > 0)
-                    MessageBox.Show("Da xoa ga.");
-                else
-                    MessageBox.Show("Không xóa được ga. Có thể mã ga không tồn tại hoặc bị lỗi ràng buộc dữ liệu.");
-            }
-
-            hienThiGa();
-            txtMaGa.Text = string.Empty;
-            txtTenGa.Text = string.Empty;
-            txtMaGa.Focus();
         }
 
-
-
-        private void btnLamMoi_Click(object sender, EventArgs e)
+        private void btnTim_Click(object sender, EventArgs e)
         {
-            hienThiGa();
+            string tuKhoa = txtTim.Text.Trim().ToLower();
+            var result = _gaService.GetAll()
+                .Where(g => g.TenGa.ToLower().Contains(tuKhoa) ||
+                            g.MaGa.ToLower().Contains(tuKhoa))
+                .Select(g => new
+                {
+                    g.MaGa,
+                    g.TenGa,
+                    g.MaTuyen,
+                    TenTuyen = g.Tuyen.TenTuyen,
+                    g.ThuTu
+                })
+                .ToList();
+
+            dgvGa.DataSource = result;
         }
 
-        private void btnTestKetNoi_Click(object sender, EventArgs e)
+        private void btnTaiLai_Click(object sender, EventArgs e)
         {
-            try
-            {
-                TroGiup.LayBang("SELECT TOP 1 * FROM Ga");
-                MessageBox.Show("Ket noi DB OK");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Loi ket noi: " + ex.Message);
-            }
+            txtTim.Clear();
+            ClearInput();
+            LoadDanhSachGa();
         }
 
-        private void dgvGa_SelectionChanged(object sender, EventArgs e)
+        private void ClearInput()
         {
-            if (dgvGa.CurrentRow != null && dgvGa.CurrentRow.Index >= 0)
-            {
-                // Lấy giá trị MaGa, TenGa từ dòng hiện tại
-                object maGa = dgvGa.CurrentRow.Cells["MaGa"].Value;
-                object tenGa = dgvGa.CurrentRow.Cells["TenGa"].Value;
-
-                if (maGa != null) txtMaGa.Text = maGa.ToString().Trim();
-                if (tenGa != null) txtTenGa.Text = tenGa.ToString().Trim();
-
-                // Highlight dòng đang chọn (màu vàng)
-                dgvGa.DefaultCellStyle.SelectionBackColor = Color.Yellow;
-                dgvGa.DefaultCellStyle.SelectionForeColor = Color.Black;
-            }
+            txtMaGa.Clear();
+            txtTenGa.Clear();
+            txtThuTu.Clear();
+            cboTuyen.SelectedIndex = 0;
         }
-
-
-
     }
 }

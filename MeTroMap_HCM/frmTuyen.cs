@@ -1,67 +1,84 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
+﻿using MetroMap_HCM.BUS;
+using MetroMap_HCM.DAL;
+using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MetroMap_HCM
 {
     public partial class frmTuyen : Form
     {
+        private readonly TuyenService _tuyenService = new TuyenService();
+
         public frmTuyen()
         {
             InitializeComponent();
         }
 
-        private void FormTuyen_Load(object sender, EventArgs e)
+        private void frmTuyen_Load(object sender, EventArgs e)
         {
-            hienThiTuyen();
+            LoadTuyenGrid();
         }
 
-        private void hienThiTuyen()
+        private void LoadTuyenGrid()
         {
-            dgvTuyen.DataSource = TroGiup.LayBang("SELECT MaTuyen, TenTuyen FROM Tuyen ORDER BY MaTuyen");
+            dgvTuyen.DataSource = _tuyenService.GetAll();
         }
 
         private void btnThem_Click(object sender, EventArgs e)
         {
-            string ma = txtMaTuyen.Text.Trim();
-            string ten = txtTenTuyen.Text.Trim();
+            if (string.IsNullOrWhiteSpace(txtMaTuyen.Text) || string.IsNullOrWhiteSpace(txtTenTuyen.Text))
+            {
+                MessageBox.Show("Nhập đủ thông tin!");
+                return;
+            }
 
-            TroGiup.ThucThi("INSERT INTO Tuyen VALUES(@ma,@ten)",
-                new SqlParameter("@ma", ma),
-                new SqlParameter("@ten", ten));
-            hienThiTuyen();
+            var t = new Tuyen
+            {
+                MaTuyen = txtMaTuyen.Text.Trim(),
+                TenTuyen = txtTenTuyen.Text.Trim(),
+                MoTa = txtMoTa.Text.Trim()
+            };
+            _tuyenService.Add(t);
+
+            LoadTuyenGrid();
         }
 
         private void btnSua_Click(object sender, EventArgs e)
         {
-            string ma = txtMaTuyen.Text.Trim();
-            string ten = txtTenTuyen.Text.Trim();
+            var t = new Tuyen
+            {
+                MaTuyen = txtMaTuyen.Text.Trim(),
+                TenTuyen = txtTenTuyen.Text.Trim(),
+                MoTa = txtMoTa.Text.Trim()
+            };
 
-            TroGiup.ThucThi("UPDATE Tuyen SET TenTuyen=@ten WHERE MaTuyen=@ma",
-                new SqlParameter("@ten", ten),
-                new SqlParameter("@ma", ma));
-            hienThiTuyen();
+            _tuyenService.Update(t);
+            MessageBox.Show("Cập nhật tuyến thành công!");
+
+            LoadTuyenGrid();
         }
 
         private void btnXoa_Click(object sender, EventArgs e)
         {
-            string ma = txtMaTuyen.Text.Trim();
-
-            TroGiup.ThucThi("DELETE FROM Tuyen WHERE MaTuyen=@ma",
-                new SqlParameter("@ma", ma));
-            hienThiTuyen();
+            _tuyenService.Delete(txtMaTuyen.Text);
+            LoadTuyenGrid();
         }
 
-        private void btnLamMoi_Click(object sender, EventArgs e)
+        private void btnTaiLai_Click(object sender, EventArgs e)
         {
-            hienThiTuyen();
+            LoadTuyenGrid();
+        }
+
+        private void dgvTuyen_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                var row = dgvTuyen.Rows[e.RowIndex];
+                txtMaTuyen.Text = row.Cells["MaTuyen"].Value.ToString();
+                txtTenTuyen.Text = row.Cells["TenTuyen"].Value.ToString();
+                txtMoTa.Text = row.Cells["MoTa"].Value?.ToString();
+            }
         }
     }
 }

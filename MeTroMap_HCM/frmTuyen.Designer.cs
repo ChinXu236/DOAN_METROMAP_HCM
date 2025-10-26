@@ -2,166 +2,159 @@
 {
     partial class frmTuyen
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
-            {
                 components.Dispose();
-            }
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
-
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             this.dgvTuyen = new System.Windows.Forms.DataGridView();
-            this.lblMaTuyen = new System.Windows.Forms.Label();
-            this.lblTenTuyen = new System.Windows.Forms.Label();
+            this.lblMa = new System.Windows.Forms.Label();
+            this.lblTen = new System.Windows.Forms.Label();
+            this.lblMoTa = new System.Windows.Forms.Label();
             this.txtMaTuyen = new System.Windows.Forms.TextBox();
             this.txtTenTuyen = new System.Windows.Forms.TextBox();
-            this.btnXoa = new System.Windows.Forms.Button();
-            this.btnLamMoi = new System.Windows.Forms.Button();
+            this.txtMoTa = new System.Windows.Forms.TextBox();
             this.btnThem = new System.Windows.Forms.Button();
             this.btnSua = new System.Windows.Forms.Button();
-            this.btnTestKetNoi = new System.Windows.Forms.Button();
+            this.btnXoa = new System.Windows.Forms.Button();
+            this.btnTaiLai = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTuyen)).BeginInit();
             this.SuspendLayout();
             // 
             // dgvTuyen
             // 
-            this.dgvTuyen.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvTuyen.Location = new System.Drawing.Point(303, 73);
+            this.dgvTuyen.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvTuyen.BackgroundColor = System.Drawing.Color.White;
+            this.dgvTuyen.ColumnHeadersHeight = 29;
+            this.dgvTuyen.Location = new System.Drawing.Point(25, 210);
             this.dgvTuyen.Name = "dgvTuyen";
+            this.dgvTuyen.RowHeadersVisible = false;
             this.dgvTuyen.RowHeadersWidth = 51;
-            this.dgvTuyen.RowTemplate.Height = 24;
-            this.dgvTuyen.Size = new System.Drawing.Size(343, 262);
+            this.dgvTuyen.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvTuyen.Size = new System.Drawing.Size(740, 200);
             this.dgvTuyen.TabIndex = 0;
+            this.dgvTuyen.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTuyen_CellClick);
             // 
-            // lblMaTuyen
+            // lblMa
             // 
-            this.lblMaTuyen.AutoSize = true;
-            this.lblMaTuyen.Location = new System.Drawing.Point(65, 90);
-            this.lblMaTuyen.Name = "lblMaTuyen";
-            this.lblMaTuyen.Size = new System.Drawing.Size(67, 16);
-            this.lblMaTuyen.TabIndex = 1;
-            this.lblMaTuyen.Text = "Mã Tuyến";
+            this.lblMa.Location = new System.Drawing.Point(40, 30);
+            this.lblMa.Name = "lblMa";
+            this.lblMa.Size = new System.Drawing.Size(100, 23);
+            this.lblMa.TabIndex = 1;
+            this.lblMa.Text = "Mã Tuyến:";
             // 
-            // lblTenTuyen
+            // lblTen
             // 
-            this.lblTenTuyen.AutoSize = true;
-            this.lblTenTuyen.Location = new System.Drawing.Point(65, 149);
-            this.lblTenTuyen.Name = "lblTenTuyen";
-            this.lblTenTuyen.Size = new System.Drawing.Size(66, 16);
-            this.lblTenTuyen.TabIndex = 1;
-            this.lblTenTuyen.Text = "Tên tuyến";
+            this.lblTen.Location = new System.Drawing.Point(40, 70);
+            this.lblTen.Name = "lblTen";
+            this.lblTen.Size = new System.Drawing.Size(100, 23);
+            this.lblTen.TabIndex = 2;
+            this.lblTen.Text = "Tên Tuyến:";
+            // 
+            // lblMoTa
+            // 
+            this.lblMoTa.Location = new System.Drawing.Point(40, 110);
+            this.lblMoTa.Name = "lblMoTa";
+            this.lblMoTa.Size = new System.Drawing.Size(100, 23);
+            this.lblMoTa.TabIndex = 3;
+            this.lblMoTa.Text = "Mô tả:";
             // 
             // txtMaTuyen
             // 
-            this.txtMaTuyen.Location = new System.Drawing.Point(148, 90);
+            this.txtMaTuyen.Location = new System.Drawing.Point(146, 27);
             this.txtMaTuyen.Name = "txtMaTuyen";
             this.txtMaTuyen.Size = new System.Drawing.Size(100, 22);
-            this.txtMaTuyen.TabIndex = 2;
+            this.txtMaTuyen.TabIndex = 4;
             // 
             // txtTenTuyen
             // 
-            this.txtTenTuyen.Location = new System.Drawing.Point(148, 143);
+            this.txtTenTuyen.Location = new System.Drawing.Point(146, 67);
             this.txtTenTuyen.Name = "txtTenTuyen";
             this.txtTenTuyen.Size = new System.Drawing.Size(100, 22);
-            this.txtTenTuyen.TabIndex = 2;
+            this.txtTenTuyen.TabIndex = 5;
             // 
-            // btnXoa
+            // txtMoTa
             // 
-            this.btnXoa.Location = new System.Drawing.Point(68, 240);
-            this.btnXoa.Name = "btnXoa";
-            this.btnXoa.Size = new System.Drawing.Size(75, 23);
-            this.btnXoa.TabIndex = 3;
-            this.btnXoa.Text = "Xóa";
-            this.btnXoa.UseVisualStyleBackColor = true;
-            // 
-            // btnLamMoi
-            // 
-            this.btnLamMoi.Location = new System.Drawing.Point(173, 240);
-            this.btnLamMoi.Name = "btnLamMoi";
-            this.btnLamMoi.Size = new System.Drawing.Size(75, 23);
-            this.btnLamMoi.TabIndex = 3;
-            this.btnLamMoi.Text = "Làm Mới";
-            this.btnLamMoi.UseVisualStyleBackColor = true;
+            this.txtMoTa.Location = new System.Drawing.Point(146, 107);
+            this.txtMoTa.Name = "txtMoTa";
+            this.txtMoTa.Size = new System.Drawing.Size(300, 22);
+            this.txtMoTa.TabIndex = 6;
             // 
             // btnThem
             // 
-            this.btnThem.Location = new System.Drawing.Point(68, 201);
+            this.btnThem.Location = new System.Drawing.Point(470, 25);
             this.btnThem.Name = "btnThem";
             this.btnThem.Size = new System.Drawing.Size(75, 23);
-            this.btnThem.TabIndex = 3;
+            this.btnThem.TabIndex = 7;
             this.btnThem.Text = "Thêm";
-            this.btnThem.UseVisualStyleBackColor = true;
+            this.btnThem.Click += new System.EventHandler(this.btnThem_Click);
             // 
             // btnSua
             // 
-            this.btnSua.Location = new System.Drawing.Point(173, 201);
+            this.btnSua.Location = new System.Drawing.Point(570, 25);
             this.btnSua.Name = "btnSua";
             this.btnSua.Size = new System.Drawing.Size(75, 23);
-            this.btnSua.TabIndex = 3;
+            this.btnSua.TabIndex = 8;
             this.btnSua.Text = "Sửa";
-            this.btnSua.UseVisualStyleBackColor = true;
+            this.btnSua.Click += new System.EventHandler(this.btnSua_Click);
             // 
-            // btnTestKetNoi
+            // btnXoa
             // 
-            this.btnTestKetNoi.Location = new System.Drawing.Point(107, 284);
-            this.btnTestKetNoi.Name = "btnTestKetNoi";
-            this.btnTestKetNoi.Size = new System.Drawing.Size(112, 23);
-            this.btnTestKetNoi.TabIndex = 3;
-            this.btnTestKetNoi.Text = "Test Kết Nối";
-            this.btnTestKetNoi.UseVisualStyleBackColor = true;
+            this.btnXoa.Location = new System.Drawing.Point(470, 70);
+            this.btnXoa.Name = "btnXoa";
+            this.btnXoa.Size = new System.Drawing.Size(75, 23);
+            this.btnXoa.TabIndex = 9;
+            this.btnXoa.Text = "Xóa";
+            this.btnXoa.Click += new System.EventHandler(this.btnXoa_Click);
+            // 
+            // btnTaiLai
+            // 
+            this.btnTaiLai.Location = new System.Drawing.Point(570, 70);
+            this.btnTaiLai.Name = "btnTaiLai";
+            this.btnTaiLai.Size = new System.Drawing.Size(75, 23);
+            this.btnTaiLai.TabIndex = 10;
+            this.btnTaiLai.Text = "Tải lại";
+            this.btnTaiLai.Click += new System.EventHandler(this.btnTaiLai_Click);
             // 
             // frmTuyen
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.btnSua);
-            this.Controls.Add(this.btnThem);
-            this.Controls.Add(this.btnTestKetNoi);
-            this.Controls.Add(this.btnLamMoi);
-            this.Controls.Add(this.btnXoa);
-            this.Controls.Add(this.txtTenTuyen);
-            this.Controls.Add(this.txtMaTuyen);
-            this.Controls.Add(this.lblTenTuyen);
-            this.Controls.Add(this.lblMaTuyen);
             this.Controls.Add(this.dgvTuyen);
+            this.Controls.Add(this.lblMa);
+            this.Controls.Add(this.lblTen);
+            this.Controls.Add(this.lblMoTa);
+            this.Controls.Add(this.txtMaTuyen);
+            this.Controls.Add(this.txtTenTuyen);
+            this.Controls.Add(this.txtMoTa);
+            this.Controls.Add(this.btnThem);
+            this.Controls.Add(this.btnSua);
+            this.Controls.Add(this.btnXoa);
+            this.Controls.Add(this.btnTaiLai);
             this.Name = "frmTuyen";
-            this.Text = "frmTuyen";
+            this.Text = "Quản lý Tuyến Metro";
+            this.Load += new System.EventHandler(this.frmTuyen_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTuyen)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
-        #endregion
-
         private System.Windows.Forms.DataGridView dgvTuyen;
-        private System.Windows.Forms.Label lblMaTuyen;
-        private System.Windows.Forms.Label lblTenTuyen;
+        private System.Windows.Forms.Label lblMa;
+        private System.Windows.Forms.Label lblTen;
+        private System.Windows.Forms.Label lblMoTa;
         private System.Windows.Forms.TextBox txtMaTuyen;
         private System.Windows.Forms.TextBox txtTenTuyen;
-        private System.Windows.Forms.Button btnXoa;
-        private System.Windows.Forms.Button btnLamMoi;
+        private System.Windows.Forms.TextBox txtMoTa;
         private System.Windows.Forms.Button btnThem;
         private System.Windows.Forms.Button btnSua;
-        private System.Windows.Forms.Button btnTestKetNoi;
+        private System.Windows.Forms.Button btnXoa;
+        private System.Windows.Forms.Button btnTaiLai;
     }
 }
