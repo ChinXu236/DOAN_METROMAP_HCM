@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Text;
 using System.Windows.Forms;
 
 namespace MetroMap_HCM
@@ -78,6 +81,49 @@ namespace MetroMap_HCM
                     main.Show();
                 }
                 this.Close();
+            }
+        }
+
+        private void pbHero_Paint(object sender, PaintEventArgs e)
+        {
+            var g = e.Graphics;
+            g.SmoothingMode = SmoothingMode.AntiAlias;
+            g.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
+
+            int w = pbHero.Width, h = pbHero.Height;
+            int pad = 24;
+
+            // ======= THÔNG SỐ DỄ CHỈNH =======
+            float TitleCenterRatio = 0.80f;   // 0.62–0.70: kéo tiêu đề xuống dưới đường ray
+            int SubtitleGap = 18;             // px: khoảng cách tiêu đề -> mô tả
+                                              // =================================
+
+            string title = "METRO INFO HO CHI MINH CITY";
+            using (var titleFont = new Font("Times New Roman", 28f, FontStyle.Bold))
+            using (var semi = new SolidBrush(Color.FromArgb(170, 0, 0, 0))) // nền mờ
+            using (var textBrush = new SolidBrush(Color.White))
+            {
+                // Chiều cao khung mờ sau tiêu đề
+                int th = (int)titleFont.GetHeight(g) + 18;
+
+                // Tâm theo tỉ lệ chiều cao ảnh
+                int yTitleCenter = (int)(h * TitleCenterRatio);
+
+                // Khung mờ căn giữa theo yTitleCenter
+                var rect = new Rectangle(pad, yTitleCenter - th / 2, w - pad * 2, th + 8);
+                g.FillRectangle(semi, rect);
+
+                var sf = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Center };
+                g.DrawString(title, titleFont, textBrush, new RectangleF(pad, rect.Y, w - pad * 2, rect.Height), sf);
+
+                // ----- Dòng mô tả nhỏ -----
+                string subtitle = "Map · Timetable · Fare · News — Updated December 2024";
+                using (var subFont = new Font("Times New Roman", 16f, FontStyle.Regular))
+                {
+                    var sf2 = new StringFormat { Alignment = StringAlignment.Center, LineAlignment = StringAlignment.Near };
+                    float ySubtitleTop = rect.Bottom + SubtitleGap; // nằm dưới khung tiêu đề
+                    g.DrawString(subtitle, subFont, textBrush, new RectangleF(pad, ySubtitleTop, w - pad * 2, 40), sf2);
+                }
             }
         }
     }
