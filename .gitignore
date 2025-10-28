@@ -1,1 +1,7 @@
-.vs/
+.vs/bin/
+obj/
+*.exe
+*.pdb
+*.cache
+*.user
+*.suo
