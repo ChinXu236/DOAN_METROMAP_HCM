@@ -7,8 +7,10 @@ namespace MetroMap_HCM.DAL
     public class Model1 : DbContext
     {
         public Model1()
-            : base("name=Model1")
+     : base("name=Model1")
         {
+            this.Configuration.LazyLoadingEnabled = false;
+
         }
 
         public virtual DbSet<Ga> Gas { get; set; }

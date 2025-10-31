@@ -13,10 +13,8 @@ namespace MetroMap_HCM.BUS
             using (var db = new Model1())
             {
                 // Include để nạp collection Gas (tên property trong Tuyen là Gas)
-                return db.Tuyens
-                         .Include(t => t.Gas)   // eager load các Ga liên quan
-                         .OrderBy(t => t.MaTuyen)
-                         .ToList();             // materialize trước khi db.Dispose()
+                return db.Tuyens.Include(t => t.LichTrinhs).ToList();
+                // materialize trước khi db.Dispose()
             }
         }
 

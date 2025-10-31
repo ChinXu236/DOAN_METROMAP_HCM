@@ -32,12 +32,12 @@
             this.dgvTuyen.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvTuyen.BackgroundColor = System.Drawing.Color.White;
             this.dgvTuyen.ColumnHeadersHeight = 29;
-            this.dgvTuyen.Location = new System.Drawing.Point(25, 210);
+            this.dgvTuyen.Location = new System.Drawing.Point(25, 164);
             this.dgvTuyen.Name = "dgvTuyen";
             this.dgvTuyen.RowHeadersVisible = false;
             this.dgvTuyen.RowHeadersWidth = 51;
             this.dgvTuyen.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTuyen.Size = new System.Drawing.Size(740, 200);
+            this.dgvTuyen.Size = new System.Drawing.Size(740, 246);
             this.dgvTuyen.TabIndex = 0;
             this.dgvTuyen.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTuyen_CellClick);
             // 
@@ -69,14 +69,14 @@
             // 
             this.txtMaTuyen.Location = new System.Drawing.Point(146, 27);
             this.txtMaTuyen.Name = "txtMaTuyen";
-            this.txtMaTuyen.Size = new System.Drawing.Size(100, 22);
+            this.txtMaTuyen.Size = new System.Drawing.Size(300, 22);
             this.txtMaTuyen.TabIndex = 4;
             // 
             // txtTenTuyen
             // 
             this.txtTenTuyen.Location = new System.Drawing.Point(146, 67);
             this.txtTenTuyen.Name = "txtTenTuyen";
-            this.txtTenTuyen.Size = new System.Drawing.Size(100, 22);
+            this.txtTenTuyen.Size = new System.Drawing.Size(300, 22);
             this.txtTenTuyen.TabIndex = 5;
             // 
             // txtMoTa
@@ -90,7 +90,7 @@
             // 
             this.btnThem.Location = new System.Drawing.Point(470, 25);
             this.btnThem.Name = "btnThem";
-            this.btnThem.Size = new System.Drawing.Size(75, 23);
+            this.btnThem.Size = new System.Drawing.Size(75, 28);
             this.btnThem.TabIndex = 7;
             this.btnThem.Text = "Thêm";
             this.btnThem.Click += new System.EventHandler(this.btnThem_Click);
@@ -99,25 +99,25 @@
             // 
             this.btnSua.Location = new System.Drawing.Point(570, 25);
             this.btnSua.Name = "btnSua";
-            this.btnSua.Size = new System.Drawing.Size(75, 23);
+            this.btnSua.Size = new System.Drawing.Size(75, 28);
             this.btnSua.TabIndex = 8;
             this.btnSua.Text = "Sửa";
             this.btnSua.Click += new System.EventHandler(this.btnSua_Click);
             // 
             // btnXoa
             // 
-            this.btnXoa.Location = new System.Drawing.Point(470, 70);
+            this.btnXoa.Location = new System.Drawing.Point(470, 67);
             this.btnXoa.Name = "btnXoa";
-            this.btnXoa.Size = new System.Drawing.Size(75, 23);
+            this.btnXoa.Size = new System.Drawing.Size(75, 26);
             this.btnXoa.TabIndex = 9;
             this.btnXoa.Text = "Xóa";
             this.btnXoa.Click += new System.EventHandler(this.btnXoa_Click);
             // 
             // btnTaiLai
             // 
-            this.btnTaiLai.Location = new System.Drawing.Point(570, 70);
+            this.btnTaiLai.Location = new System.Drawing.Point(570, 67);
             this.btnTaiLai.Name = "btnTaiLai";
-            this.btnTaiLai.Size = new System.Drawing.Size(75, 23);
+            this.btnTaiLai.Size = new System.Drawing.Size(75, 26);
             this.btnTaiLai.TabIndex = 10;
             this.btnTaiLai.Text = "Tải lại";
             this.btnTaiLai.Click += new System.EventHandler(this.btnTaiLai_Click);
@@ -137,6 +137,7 @@
             this.Controls.Add(this.btnXoa);
             this.Controls.Add(this.btnTaiLai);
             this.Name = "frmTuyen";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Quản lý Tuyến Metro";
             this.Load += new System.EventHandler(this.frmTuyen_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTuyen)).EndInit();

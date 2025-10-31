@@ -195,6 +195,7 @@
             this.Controls.Add(this.btnTim);
             this.Controls.Add(this.btnTaiLai);
             this.Name = "frmGa";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Quản lý Ga Metro";
             this.Load += new System.EventHandler(this.frmGa_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvGa)).EndInit();

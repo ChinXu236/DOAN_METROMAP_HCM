@@ -12,6 +12,7 @@ namespace MetroMap_HCM
 
         public frmMain(string userRole)
         {
+            // Text test
             InitializeComponent();
             _userRole = userRole;
         }
