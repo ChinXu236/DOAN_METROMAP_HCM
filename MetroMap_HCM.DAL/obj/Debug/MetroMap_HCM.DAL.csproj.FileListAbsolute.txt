@@ -22,3 +22,15 @@ D:\HUTECH\NhuAnh\LTWin\DOAN_METROMAP_HCM\MetroMap_HCM.DAL\obj\Debug\MetroMap_HCM
 D:\HUTECH\NhuAnh\LTWin\DOAN_METROMAP_HCM\MetroMap_HCM.DAL\obj\Debug\MetroMap.AF1D5542.Up2Date
 D:\HUTECH\NhuAnh\LTWin\DOAN_METROMAP_HCM\MetroMap_HCM.DAL\obj\Debug\MetroMap_HCM.DAL.dll
 D:\HUTECH\NhuAnh\LTWin\DOAN_METROMAP_HCM\MetroMap_HCM.DAL\obj\Debug\MetroMap_HCM.DAL.pdb
+C:\Users\admin\Source\Repos\DOAN_METROMAP_HCM\MetroMap_HCM.DAL\bin\Debug\MetroMap_HCM.DAL.dll.config
+C:\Users\admin\Source\Repos\DOAN_METROMAP_HCM\MetroMap_HCM.DAL\bin\Debug\MetroMap_HCM.DAL.dll
+C:\Users\admin\Source\Repos\DOAN_METROMAP_HCM\MetroMap_HCM.DAL\bin\Debug\MetroMap_HCM.DAL.pdb
+C:\Users\admin\Source\Repos\DOAN_METROMAP_HCM\MetroMap_HCM.DAL\bin\Debug\EntityFramework.dll
+C:\Users\admin\Source\Repos\DOAN_METROMAP_HCM\MetroMap_HCM.DAL\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\admin\Source\Repos\DOAN_METROMAP_HCM\MetroMap_HCM.DAL\bin\Debug\EntityFramework.xml
+C:\Users\admin\Source\Repos\DOAN_METROMAP_HCM\MetroMap_HCM.DAL\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\admin\Source\Repos\DOAN_METROMAP_HCM\MetroMap_HCM.DAL\obj\Debug\MetroMap_HCM.DAL.csproj.AssemblyReference.cache
+C:\Users\admin\Source\Repos\DOAN_METROMAP_HCM\MetroMap_HCM.DAL\obj\Debug\MetroMap_HCM.DAL.csproj.CoreCompileInputs.cache
+C:\Users\admin\Source\Repos\DOAN_METROMAP_HCM\MetroMap_HCM.DAL\obj\Debug\MetroMap.AF1D5542.Up2Date
+C:\Users\admin\Source\Repos\DOAN_METROMAP_HCM\MetroMap_HCM.DAL\obj\Debug\MetroMap_HCM.DAL.dll
+C:\Users\admin\Source\Repos\DOAN_METROMAP_HCM\MetroMap_HCM.DAL\obj\Debug\MetroMap_HCM.DAL.pdb
