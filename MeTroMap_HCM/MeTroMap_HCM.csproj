@@ -42,6 +42,11 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="QRCoder, Version=1.7.0.0, Culture=neutral, PublicKeyToken=c4ed5b9ae8358a28, processorArchitecture=MSIL">
+      <HintPath>..\packages\QRCoder.1.7.0\lib\net40\QRCoder.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -58,6 +63,7 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="frmDatVe.cs">
@@ -102,6 +108,12 @@
     <Compile Include="frmTaiKhoanNhanVien.Designer.cs">
       <DependentUpon>frmTaiKhoanNhanVien.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmThanhToan.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmThanhToan.Designer.cs">
+      <DependentUpon>frmThanhToan.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmThongKe.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -122,6 +134,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frmDatVe.resx">
+      <DependentUpon>frmDatVe.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="frmGa.resx">
       <DependentUpon>frmGa.cs</DependentUpon>
     </EmbeddedResource>
@@ -133,6 +148,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmThanhToan.resx">
+      <DependentUpon>frmThanhToan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmThongKe.resx">
       <DependentUpon>frmThongKe.cs</DependentUpon>
