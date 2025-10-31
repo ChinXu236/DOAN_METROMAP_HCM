@@ -17,7 +17,7 @@ namespace MetroMap_HCM
         }
 
         private void frmGa_Load(object sender, EventArgs e)
-        {
+        { 
             LoadTuyenCombo();
             LoadDanhSachGa();
         }

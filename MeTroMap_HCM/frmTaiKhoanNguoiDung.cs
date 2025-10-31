@@ -14,8 +14,8 @@ namespace MetroMap_HCM
         private void frmTaiKhoanNguoiDung_Load(object sender, EventArgs e)
         {
             // Giả lập dữ liệu người dùng hiện tại (sau này lấy từ database)
-            txtHoTen.Text = "Trần Phương Trinh";
-            txtEmail.Text = "trinh@example.com";
+            txtHoTen.Text = "Trần Thanh Hằng";
+            txtEmail.Text = "hang@example.com";
             txtDiaChi.Text = "Quận 1, TP.HCM";
             txtSDT.Text = "0912345678";
 

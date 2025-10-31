@@ -22,11 +22,10 @@ namespace MetroMap_HCM
 
         private void btnThongKe_Click(object sender, EventArgs e)
         {
-            int thang = (int)cboThang.SelectedItem;
-            var ds = _service.GetDoanhThuTheoThang(thang);
-
+            int thang = (int)cboThang.SelectedItem; var ds = _service.GetDoanhThuTheoThang(thang);
             dgvDoanhThu.DataSource = ds;
             txtTongDoanhThu.Text = ds.Sum(x => x.DoanhThu).ToString("N0");
         }
+
     }
 }

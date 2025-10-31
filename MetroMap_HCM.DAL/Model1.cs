@@ -18,6 +18,7 @@ namespace MetroMap_HCM.DAL
         public virtual DbSet<LienKet> LienKets { get; set; }
         public virtual DbSet<LichTrinh> LichTrinhs { get; set; }
 
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
