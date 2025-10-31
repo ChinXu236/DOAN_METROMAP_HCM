@@ -67,55 +67,114 @@ namespace MetroMap_HCM
             }
 
             var ketQuaChiTiet = Dijkstra.TimDuongChiTiet(gaDi, gaDen);
-
             if (ketQuaChiTiet == null || ketQuaChiTiet.Count == 0)
             {
                 MessageBox.Show("Không tìm thấy đường đi!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
-            selectedChiTiet = ketQuaChiTiet;
-            dgvLoTrinh.Rows.Clear();
-            int stt = 1;
-            gioXuatPhatChuyen = new List<TimeSpan>();
+            // Xác định giờ cần tìm từ txtXP
+            bool coNhapGioXP = TimeSpan.TryParse(txtXP.Text.Trim(), out TimeSpan gioXPCanTim);
+            if (!coNhapGioXP)
+                gioXPCanTim = DateTime.Now.TimeOfDay;
 
-            double tongKm = ketQuaChiTiet.Sum(d => d.KhoangCach);
-            int tongPhut = ketQuaChiTiet.Sum(d => d.ThoiGianDenTiepTheo);
-            string cacTuyen = string.Join(", ", ketQuaChiTiet.Select(d => d.MaTuyen).Distinct());
+            // Xác định giờ cần tìm từ txtD (giờ đến)
+            bool coNhapGioD = TimeSpan.TryParse(txtD.Text.Trim(), out TimeSpan gioDCanTim);
 
-            // Lấy giờ xuất phát đầu tiên
-            var firstSegment = ketQuaChiTiet
-                .Where(d => d.GaDi.Equals(gaDi, StringComparison.OrdinalIgnoreCase) && d.GioXuatPhat.HasValue)
-                .OrderBy(d => d.GioXuatPhat.Value)
-                .FirstOrDefault();
-
-            if (firstSegment == null)
+            TimeSpan gioCanTim = coNhapGioD ? gioDCanTim : DateTime.Now.TimeOfDay;
+            // Giới hạn giờ hợp lệ: 05:00 -> 23:00
+            TimeSpan gioDau = new TimeSpan(5, 0, 0);
+            TimeSpan gioCuoi = new TimeSpan(23, 0, 0);
+            if (gioXPCanTim < gioDau) gioXPCanTim = gioDau;
+            if (gioXPCanTim > gioCuoi) gioXPCanTim = gioCuoi;
+            if (coNhapGioD)
             {
-                MessageBox.Show("Không tìm thấy giờ xuất phát cho ga đi này!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
+                if (gioDCanTim < gioDau) gioDCanTim = gioDau;
+                if (gioDCanTim > gioCuoi) gioDCanTim = gioCuoi;
             }
 
-            TimeSpan gioBatDauChuyen = firstSegment.GioXuatPhat.Value;
-
-            // Hiển thị 5 chuyến, cách nhau 10 phút
-            for (int i = 0; i < 5; i++)
+            using (var db = new Model1())
             {
-                string thongTin = $"Tổng thời gian: {tongPhut / 60} giờ {tongPhut % 60} phút\n" +
-                                  $"Chuyến bắt đầu: {gioBatDauChuyen:hh\\:mm}";
+                var gaStart = db.Gas.FirstOrDefault(g => g.TenGa.Equals(gaDi, StringComparison.OrdinalIgnoreCase));
+                if (gaStart == null)
+                {
+                    MessageBox.Show("Không tìm thấy ga xuất phát!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-                dgvLoTrinh.Rows.Add(
-                    stt++,
-                    gaDi,
-                    gaDen,
-                    cacTuyen,
-                    tongKm.ToString("0.00"),
-                    thongTin
-                );
+                // Lấy tất cả lịch từ 05:00 -> 23:00
+                var danhSachLich = db.LichTrinhs
+                    .Where(l => l.MaGa == gaStart.MaGa && l.GioXuatPhat >= gioDau && l.GioXuatPhat <= gioCuoi)
+                    .OrderBy(l => l.GioXuatPhat)
+                    .ToList();
 
-                gioXuatPhatChuyen.Add(gioBatDauChuyen); // Lưu giờ xuất phát của chuyến
-                gioBatDauChuyen = gioBatDauChuyen.Add(TimeSpan.FromMinutes(10));
+                if (danhSachLich.Count == 0)
+                {
+                    MessageBox.Show("Không có lịch trình cho ga xuất phát trong giờ 05:00 - 23:00!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                int tongPhut = ketQuaChiTiet.Sum(d => d.ThoiGianDenTiepTheo);
+
+                // Nếu nhập giờ đến, lọc các chuyến kết thúc <= giờ đến
+                if (coNhapGioD)
+                {
+                    danhSachLich = danhSachLich
+                        .Where(l => l.GioXuatPhat.Add(TimeSpan.FromMinutes(tongPhut)) <= gioDCanTim)
+                        .ToList();
+
+                    if (danhSachLich.Count == 0)
+                    {
+                        MessageBox.Show("Không có chuyến nào kết thúc trước giờ nhập!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        return;
+                    }
+                }
+
+                // Tìm chuyến gần nhất với giờ xuất phát
+                var lichGanNhat = danhSachLich
+                    .OrderBy(l => Math.Abs((l.GioXuatPhat - gioXPCanTim).TotalMinutes))
+                    .FirstOrDefault();
+
+                if (lichGanNhat == null) return;
+
+                // Sinh 5 chuyến cách nhau 10 phút từ chuyến gần nhất
+                List<LichTrinh> chuyenGanNhat5 = new List<LichTrinh>();
+                TimeSpan gioHienTai = lichGanNhat.GioXuatPhat;
+                for (int i = 0; i < 5; i++)
+                {
+                    var lich = danhSachLich.FirstOrDefault(l => l.GioXuatPhat >= gioHienTai);
+                    if (lich != null)
+                    {
+                        chuyenGanNhat5.Add(lich);
+                        gioHienTai = lich.GioXuatPhat.Add(new TimeSpan(0, 10, 0));
+                    }
+                }
+
+                // Hiển thị lên DataGridView
+                dgvLoTrinh.Rows.Clear();
+                int stt = 1;
+                double tongKm = ketQuaChiTiet.Sum(d => d.KhoangCach);
+                string cacTuyen = string.Join(", ", ketQuaChiTiet.Select(d => d.MaTuyen).Distinct());
+
+                gioXuatPhatChuyen = new List<TimeSpan>();
+
+                foreach (var lich in chuyenGanNhat5)
+                {
+                    dgvLoTrinh.Rows.Add(
+                        stt++,
+                        gaDi,
+                        gaDen,
+                        cacTuyen,
+                        tongKm.ToString("0.00"),
+                        $"Giờ xuất phát: {lich.GioXuatPhat:hh\\:mm}\nTổng thời gian: {tongPhut / 60} giờ {tongPhut % 60} phút"
+                    );
+                    gioXuatPhatChuyen.Add(lich.GioXuatPhat);
+                }
+
+                selectedChiTiet = ketQuaChiTiet;
             }
         }
+
 
         private void BtnChiTiet_Click(object sender, EventArgs e)
         {
@@ -185,6 +244,21 @@ namespace MetroMap_HCM
                     thongTin
                 );
             }
+        }
+
+        private void dtvThoiGian_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtGio_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtPhut_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
