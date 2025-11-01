@@ -5,8 +5,6 @@
         private System.ComponentModel.IContainer components = null;
         private System.Windows.Forms.Label lblGaĐi;
         private System.Windows.Forms.Label lblGaĐến;
-        private System.Windows.Forms.TextBox txtTu;
-        private System.Windows.Forms.TextBox txtDen;
         private System.Windows.Forms.Button btnTimDuong;
         private System.Windows.Forms.Button btnDoiChieu;
         private System.Windows.Forms.DataGridView dgvLoTrinh;
@@ -24,8 +22,6 @@
         {
             this.lblGaĐi = new System.Windows.Forms.Label();
             this.lblGaĐến = new System.Windows.Forms.Label();
-            this.txtTu = new System.Windows.Forms.TextBox();
-            this.txtDen = new System.Windows.Forms.TextBox();
             this.btnTimDuong = new System.Windows.Forms.Button();
             this.btnDoiChieu = new System.Windows.Forms.Button();
             this.dgvLoTrinh = new System.Windows.Forms.DataGridView();
@@ -38,15 +34,23 @@
             this.btnChiTiet = new System.Windows.Forms.Button();
             this.BtnQuayLai = new System.Windows.Forms.Button();
             this.pnlTop = new System.Windows.Forms.Panel();
+            this.cboGioD = new System.Windows.Forms.ComboBox();
+            this.cboGioXP = new System.Windows.Forms.ComboBox();
+            this.cboGaDen = new System.Windows.Forms.ComboBox();
+            this.cboTuyenDen = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.tlpSearch = new System.Windows.Forms.TableLayoutPanel();
             this.flpRow3 = new System.Windows.Forms.FlowLayoutPanel();
             this.flpRow1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.flpRow2 = new System.Windows.Forms.FlowLayoutPanel();
-            this.lxtGioXP = new System.Windows.Forms.Label();
-            this.lxtGioD = new System.Windows.Forms.Label();
-            this.txtXP = new System.Windows.Forms.TextBox();
-            this.txtD = new System.Windows.Forms.TextBox();
             this.dtvThoiGian = new System.Windows.Forms.DateTimePicker();
+            this.flpRow2 = new System.Windows.Forms.FlowLayoutPanel();
+            this.lblTuyenDi = new System.Windows.Forms.Label();
+            this.cboTuyenDi = new System.Windows.Forms.ComboBox();
+            this.cboGaDi = new System.Windows.Forms.ComboBox();
+            this.lxtGioD = new System.Windows.Forms.Label();
+            this.lxtGioXP = new System.Windows.Forms.Label();
+            this.chkXP = new System.Windows.Forms.CheckBox();
+            this.chkDen = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLoTrinh)).BeginInit();
             this.pnlTop.SuspendLayout();
             this.tlpSearch.SuspendLayout();
@@ -58,7 +62,7 @@
             // lblGaĐi
             // 
             this.lblGaĐi.AutoSize = true;
-            this.lblGaĐi.Location = new System.Drawing.Point(3, 0);
+            this.lblGaĐi.Location = new System.Drawing.Point(3, 47);
             this.lblGaĐi.Name = "lblGaĐi";
             this.lblGaĐi.Size = new System.Drawing.Size(62, 26);
             this.lblGaĐi.TabIndex = 0;
@@ -68,25 +72,11 @@
             // lblGaĐến
             // 
             this.lblGaĐến.AutoSize = true;
-            this.lblGaĐến.Location = new System.Drawing.Point(3, 47);
+            this.lblGaĐến.Location = new System.Drawing.Point(62, 175);
             this.lblGaĐến.Name = "lblGaĐến";
-            this.lblGaĐến.Size = new System.Drawing.Size(46, 51);
+            this.lblGaĐến.Size = new System.Drawing.Size(78, 26);
             this.lblGaĐến.TabIndex = 1;
             this.lblGaĐến.Text = "Ga đến";
-            // 
-            // txtTu
-            // 
-            this.txtTu.Location = new System.Drawing.Point(83, 3);
-            this.txtTu.Name = "txtTu";
-            this.txtTu.Size = new System.Drawing.Size(354, 34);
-            this.txtTu.TabIndex = 2;
-            // 
-            // txtDen
-            // 
-            this.txtDen.Location = new System.Drawing.Point(83, 50);
-            this.txtDen.Name = "txtDen";
-            this.txtDen.Size = new System.Drawing.Size(354, 34);
-            this.txtDen.TabIndex = 3;
             // 
             // btnTimDuong
             // 
@@ -126,13 +116,13 @@
             this.Tuyen,
             this.KhoangCach,
             this.GioXuatPhat});
-            this.dgvLoTrinh.Location = new System.Drawing.Point(199, 241);
+            this.dgvLoTrinh.Location = new System.Drawing.Point(199, 369);
             this.dgvLoTrinh.Name = "dgvLoTrinh";
             this.dgvLoTrinh.ReadOnly = true;
             this.dgvLoTrinh.RowHeadersVisible = false;
             this.dgvLoTrinh.RowHeadersWidth = 51;
             this.dgvLoTrinh.RowTemplate.Height = 40;
-            this.dgvLoTrinh.Size = new System.Drawing.Size(1288, 430);
+            this.dgvLoTrinh.Size = new System.Drawing.Size(1288, 302);
             this.dgvLoTrinh.TabIndex = 6;
             // 
             // STT
@@ -170,7 +160,7 @@
             // KhoangCach
             // 
             this.KhoangCach.FillWeight = 50F;
-            this.KhoangCach.HeaderText = "Khoảng cách";
+            this.KhoangCach.HeaderText = "Khoảng cách (Km)";
             this.KhoangCach.MinimumWidth = 6;
             this.KhoangCach.Name = "KhoangCach";
             this.KhoangCach.ReadOnly = true;
@@ -221,16 +211,64 @@
             // 
             this.pnlTop.BackColor = System.Drawing.Color.White;
             this.pnlTop.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlTop.Controls.Add(this.chkDen);
+            this.pnlTop.Controls.Add(this.chkXP);
+            this.pnlTop.Controls.Add(this.cboGioD);
+            this.pnlTop.Controls.Add(this.cboGioXP);
+            this.pnlTop.Controls.Add(this.cboGaDen);
+            this.pnlTop.Controls.Add(this.cboTuyenDen);
+            this.pnlTop.Controls.Add(this.label2);
             this.pnlTop.Controls.Add(this.tlpSearch);
-            this.pnlTop.Controls.Add(this.txtD);
-            this.pnlTop.Controls.Add(this.txtXP);
+            this.pnlTop.Controls.Add(this.lblGaĐến);
             this.pnlTop.Controls.Add(this.lxtGioD);
             this.pnlTop.Controls.Add(this.lxtGioXP);
             this.pnlTop.Location = new System.Drawing.Point(199, 12);
             this.pnlTop.Name = "pnlTop";
             this.pnlTop.Padding = new System.Windows.Forms.Padding(16);
-            this.pnlTop.Size = new System.Drawing.Size(1288, 196);
+            this.pnlTop.Size = new System.Drawing.Size(1288, 299);
             this.pnlTop.TabIndex = 9;
+            // 
+            // cboGioD
+            // 
+            this.cboGioD.FormattingEnabled = true;
+            this.cboGioD.Location = new System.Drawing.Point(228, 263);
+            this.cboGioD.Name = "cboGioD";
+            this.cboGioD.Size = new System.Drawing.Size(226, 34);
+            this.cboGioD.TabIndex = 17;
+            // 
+            // cboGioXP
+            // 
+            this.cboGioXP.FormattingEnabled = true;
+            this.cboGioXP.Location = new System.Drawing.Point(228, 223);
+            this.cboGioXP.Name = "cboGioXP";
+            this.cboGioXP.Size = new System.Drawing.Size(226, 34);
+            this.cboGioXP.TabIndex = 16;
+            // 
+            // cboGaDen
+            // 
+            this.cboGaDen.FormattingEnabled = true;
+            this.cboGaDen.Location = new System.Drawing.Point(228, 163);
+            this.cboGaDen.Name = "cboGaDen";
+            this.cboGaDen.Size = new System.Drawing.Size(226, 34);
+            this.cboGaDen.TabIndex = 15;
+            // 
+            // cboTuyenDen
+            // 
+            this.cboTuyenDen.FormattingEnabled = true;
+            this.cboTuyenDen.Location = new System.Drawing.Point(228, 123);
+            this.cboTuyenDen.Name = "cboTuyenDen";
+            this.cboTuyenDen.Size = new System.Drawing.Size(226, 34);
+            this.cboTuyenDen.TabIndex = 14;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(62, 130);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(111, 26);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "Tuyến đến";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // tlpSearch
             // 
@@ -242,14 +280,14 @@
             this.tlpSearch.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 441F));
             this.tlpSearch.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tlpSearch.Controls.Add(this.flpRow3, 5, 1);
-            this.tlpSearch.Controls.Add(this.lblGaĐi, 0, 0);
-            this.tlpSearch.Controls.Add(this.txtTu, 1, 0);
-            this.tlpSearch.Controls.Add(this.lblGaĐến, 0, 1);
-            this.tlpSearch.Controls.Add(this.txtDen, 1, 1);
+            this.tlpSearch.Controls.Add(this.lblGaĐi, 0, 1);
             this.tlpSearch.Controls.Add(this.flpRow1, 4, 0);
             this.tlpSearch.Controls.Add(this.flpRow2, 5, 0);
             this.tlpSearch.Controls.Add(this.btnDoiChieu, 2, 0);
             this.tlpSearch.Controls.Add(this.btnTimDuong, 4, 1);
+            this.tlpSearch.Controls.Add(this.lblTuyenDi, 0, 0);
+            this.tlpSearch.Controls.Add(this.cboTuyenDi, 1, 0);
+            this.tlpSearch.Controls.Add(this.cboGaDi, 1, 1);
             this.tlpSearch.Location = new System.Drawing.Point(59, 19);
             this.tlpSearch.Name = "tlpSearch";
             this.tlpSearch.RowCount = 2;
@@ -277,6 +315,13 @@
             this.flpRow1.TabIndex = 6;
             this.flpRow1.WrapContents = false;
             // 
+            // dtvThoiGian
+            // 
+            this.dtvThoiGian.Location = new System.Drawing.Point(3, 3);
+            this.dtvThoiGian.Name = "dtvThoiGian";
+            this.dtvThoiGian.Size = new System.Drawing.Size(382, 34);
+            this.dtvThoiGian.TabIndex = 0;
+            // 
             // flpRow2
             // 
             this.flpRow2.Controls.Add(this.btnChiTiet);
@@ -285,47 +330,67 @@
             this.flpRow2.Size = new System.Drawing.Size(193, 41);
             this.flpRow2.TabIndex = 7;
             // 
-            // lxtGioXP
+            // lblTuyenDi
             // 
-            this.lxtGioXP.AutoSize = true;
-            this.lxtGioXP.Location = new System.Drawing.Point(62, 120);
-            this.lxtGioXP.Name = "lxtGioXP";
-            this.lxtGioXP.Size = new System.Drawing.Size(137, 26);
-            this.lxtGioXP.TabIndex = 1;
-            this.lxtGioXP.Text = "Giờ xuất phát";
+            this.lblTuyenDi.AutoSize = true;
+            this.lblTuyenDi.Location = new System.Drawing.Point(3, 0);
+            this.lblTuyenDi.Name = "lblTuyenDi";
+            this.lblTuyenDi.Size = new System.Drawing.Size(71, 47);
+            this.lblTuyenDi.TabIndex = 11;
+            this.lblTuyenDi.Text = "Tuyến đi";
+            this.lblTuyenDi.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // cboTuyenDi
+            // 
+            this.cboTuyenDi.FormattingEnabled = true;
+            this.cboTuyenDi.Location = new System.Drawing.Point(83, 3);
+            this.cboTuyenDi.Name = "cboTuyenDi";
+            this.cboTuyenDi.Size = new System.Drawing.Size(312, 34);
+            this.cboTuyenDi.TabIndex = 12;
+            // 
+            // cboGaDi
+            // 
+            this.cboGaDi.FormattingEnabled = true;
+            this.cboGaDi.Location = new System.Drawing.Point(83, 50);
+            this.cboGaDi.Name = "cboGaDi";
+            this.cboGaDi.Size = new System.Drawing.Size(312, 34);
+            this.cboGaDi.TabIndex = 13;
             // 
             // lxtGioD
             // 
             this.lxtGioD.AutoSize = true;
-            this.lxtGioD.Location = new System.Drawing.Point(62, 161);
+            this.lxtGioD.Location = new System.Drawing.Point(62, 272);
             this.lxtGioD.Name = "lxtGioD";
             this.lxtGioD.Size = new System.Drawing.Size(91, 26);
             this.lxtGioD.TabIndex = 2;
             this.lxtGioD.Text = "Giờ Đến";
             // 
-            // txtXP
+            // lxtGioXP
             // 
-            this.txtXP.Location = new System.Drawing.Point(238, 121);
-            this.txtXP.Name = "txtXP";
-            this.txtXP.Size = new System.Drawing.Size(204, 34);
-            this.txtXP.TabIndex = 3;
-            this.txtXP.TextChanged += new System.EventHandler(this.txtGio_TextChanged);
+            this.lxtGioXP.AutoSize = true;
+            this.lxtGioXP.Location = new System.Drawing.Point(62, 226);
+            this.lxtGioXP.Name = "lxtGioXP";
+            this.lxtGioXP.Size = new System.Drawing.Size(137, 26);
+            this.lxtGioXP.TabIndex = 1;
+            this.lxtGioXP.Text = "Giờ xuất phát";
             // 
-            // txtD
+            // chkXP
             // 
-            this.txtD.Location = new System.Drawing.Point(238, 161);
-            this.txtD.Name = "txtD";
-            this.txtD.Size = new System.Drawing.Size(204, 34);
-            this.txtD.TabIndex = 4;
-            this.txtD.TextChanged += new System.EventHandler(this.txtPhut_TextChanged);
+            this.chkXP.AutoSize = true;
+            this.chkXP.Location = new System.Drawing.Point(460, 232);
+            this.chkXP.Name = "chkXP";
+            this.chkXP.Size = new System.Drawing.Size(18, 17);
+            this.chkXP.TabIndex = 18;
+            this.chkXP.UseVisualStyleBackColor = true;
             // 
-            // dtvThoiGian
+            // chkDen
             // 
-            this.dtvThoiGian.Location = new System.Drawing.Point(3, 3);
-            this.dtvThoiGian.Name = "dtvThoiGian";
-            this.dtvThoiGian.Size = new System.Drawing.Size(382, 34);
-            this.dtvThoiGian.TabIndex = 0;
-            this.dtvThoiGian.ValueChanged += new System.EventHandler(this.dtvThoiGian_ValueChanged);
+            this.chkDen.AutoSize = true;
+            this.chkDen.Location = new System.Drawing.Point(460, 272);
+            this.chkDen.Name = "chkDen";
+            this.chkDen.Size = new System.Drawing.Size(18, 17);
+            this.chkDen.TabIndex = 19;
+            this.chkDen.UseVisualStyleBackColor = true;
             // 
             // frmTimDuong
             // 
@@ -363,10 +428,18 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Tuyen;
         private System.Windows.Forms.DataGridViewTextBoxColumn KhoangCach;
         private System.Windows.Forms.DataGridViewTextBoxColumn GioXuatPhat;
-        private System.Windows.Forms.TextBox txtD;
-        private System.Windows.Forms.TextBox txtXP;
         private System.Windows.Forms.Label lxtGioD;
         private System.Windows.Forms.Label lxtGioXP;
         private System.Windows.Forms.DateTimePicker dtvThoiGian;
+        private System.Windows.Forms.ComboBox cboGioD;
+        private System.Windows.Forms.ComboBox cboGioXP;
+        private System.Windows.Forms.ComboBox cboGaDen;
+        private System.Windows.Forms.ComboBox cboTuyenDen;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblTuyenDi;
+        private System.Windows.Forms.ComboBox cboTuyenDi;
+        private System.Windows.Forms.ComboBox cboGaDi;
+        private System.Windows.Forms.CheckBox chkDen;
+        private System.Windows.Forms.CheckBox chkXP;
     }
 }

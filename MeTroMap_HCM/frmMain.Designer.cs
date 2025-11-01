@@ -17,16 +17,18 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.mniHeThong = new System.Windows.Forms.ToolStripMenuItem();
             this.mniDangXuat = new System.Windows.Forms.ToolStripMenuItem();
+            this.ảnhCácTuyếnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mniQuanLy = new System.Windows.Forms.ToolStripMenuItem();
             this.mniGa = new System.Windows.Forms.ToolStripMenuItem();
             this.mniTuyen = new System.Windows.Forms.ToolStripMenuItem();
             this.mniLienKet = new System.Windows.Forms.ToolStripMenuItem();
             this.mniThongKe = new System.Windows.Forms.ToolStripMenuItem();
-            this.mniTaiKhoanNhanVien = new System.Windows.Forms.ToolStripMenuItem(); // thêm mới
+            this.mniTaiKhoanNhanVien = new System.Windows.Forms.ToolStripMenuItem();
             this.mniNguoiDung = new System.Windows.Forms.ToolStripMenuItem();
             this.mniTimDuong = new System.Windows.Forms.ToolStripMenuItem();
             this.mniDatVe = new System.Windows.Forms.ToolStripMenuItem();
-            this.mniTaiKhoanNguoiDung = new System.Windows.Forms.ToolStripMenuItem(); // thêm mới
+            this.mniTaiKhoanNguoiDung = new System.Windows.Forms.ToolStripMenuItem();
+            this.thôngTinVéToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlMain = new System.Windows.Forms.Panel();
             this.pnlContent = new System.Windows.Forms.Panel();
             this.flpInfo = new System.Windows.Forms.FlowLayoutPanel();
@@ -63,7 +65,8 @@
             // mniHeThong
             // 
             this.mniHeThong.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mniDangXuat});
+            this.mniDangXuat,
+            this.ảnhCácTuyếnToolStripMenuItem});
             this.mniHeThong.ForeColor = System.Drawing.Color.White;
             this.mniHeThong.Name = "mniHeThong";
             this.mniHeThong.Size = new System.Drawing.Size(119, 66);
@@ -72,9 +75,16 @@
             // mniDangXuat
             // 
             this.mniDangXuat.Name = "mniDangXuat";
-            this.mniDangXuat.Size = new System.Drawing.Size(202, 30);
+            this.mniDangXuat.Size = new System.Drawing.Size(253, 30);
             this.mniDangXuat.Text = "Đăng xuất";
             this.mniDangXuat.Click += new System.EventHandler(this.mniDangXuat_Click);
+            // 
+            // ảnhCácTuyếnToolStripMenuItem
+            // 
+            this.ảnhCácTuyếnToolStripMenuItem.Name = "ảnhCácTuyếnToolStripMenuItem";
+            this.ảnhCácTuyếnToolStripMenuItem.Size = new System.Drawing.Size(253, 30);
+            this.ảnhCácTuyếnToolStripMenuItem.Text = "Ảnh Các Tuyến";
+            this.ảnhCácTuyếnToolStripMenuItem.Click += new System.EventHandler(this.ảnhCácTuyếnToolStripMenuItem_Click);
             // 
             // mniQuanLy
             // 
@@ -83,7 +93,7 @@
             this.mniTuyen,
             this.mniLienKet,
             this.mniThongKe,
-            this.mniTaiKhoanNhanVien}); // thêm mới
+            this.mniTaiKhoanNhanVien});
             this.mniQuanLy.ForeColor = System.Drawing.Color.White;
             this.mniQuanLy.Name = "mniQuanLy";
             this.mniQuanLy.Size = new System.Drawing.Size(105, 66);
@@ -129,7 +139,8 @@
             this.mniNguoiDung.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mniTimDuong,
             this.mniDatVe,
-            this.mniTaiKhoanNguoiDung}); // thêm mới
+            this.mniTaiKhoanNguoiDung,
+            this.thôngTinVéToolStripMenuItem});
             this.mniNguoiDung.ForeColor = System.Drawing.Color.White;
             this.mniNguoiDung.Name = "mniNguoiDung";
             this.mniNguoiDung.Size = new System.Drawing.Size(144, 66);
@@ -138,23 +149,30 @@
             // mniTimDuong
             // 
             this.mniTimDuong.Name = "mniTimDuong";
-            this.mniTimDuong.Size = new System.Drawing.Size(317, 30);
-            this.mniTimDuong.Text = "Tìm đường ngắn nhất";
+            this.mniTimDuong.Size = new System.Drawing.Size(318, 30);
+            this.mniTimDuong.Text = "Tìm đường";
             this.mniTimDuong.Click += new System.EventHandler(this.mniTimDuong_Click);
             // 
             // mniDatVe
             // 
             this.mniDatVe.Name = "mniDatVe";
-            this.mniDatVe.Size = new System.Drawing.Size(317, 30);
+            this.mniDatVe.Size = new System.Drawing.Size(318, 30);
             this.mniDatVe.Text = "Đặt vé Metro";
             this.mniDatVe.Click += new System.EventHandler(this.mniDatVe_Click);
             // 
             // mniTaiKhoanNguoiDung
             // 
             this.mniTaiKhoanNguoiDung.Name = "mniTaiKhoanNguoiDung";
-            this.mniTaiKhoanNguoiDung.Size = new System.Drawing.Size(317, 30);
+            this.mniTaiKhoanNguoiDung.Size = new System.Drawing.Size(318, 30);
             this.mniTaiKhoanNguoiDung.Text = "Tài khoản người dùng";
             this.mniTaiKhoanNguoiDung.Click += new System.EventHandler(this.mniTaiKhoanNguoiDung_Click);
+            // 
+            // thôngTinVéToolStripMenuItem
+            // 
+            this.thôngTinVéToolStripMenuItem.Name = "thôngTinVéToolStripMenuItem";
+            this.thôngTinVéToolStripMenuItem.Size = new System.Drawing.Size(318, 30);
+            this.thôngTinVéToolStripMenuItem.Text = "Thông tin chi tiết vé";
+            this.thôngTinVéToolStripMenuItem.Click += new System.EventHandler(this.thôngTinVéToolStripMenuItem_Click);
             // 
             // pnlMain
             // 
@@ -173,7 +191,9 @@
             this.pnlContent.Controls.Add(this.flpInfo);
             this.pnlContent.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlContent.Location = new System.Drawing.Point(0, 520);
+            this.pnlContent.Name = "pnlContent";
             this.pnlContent.Size = new System.Drawing.Size(1625, 463);
+            this.pnlContent.TabIndex = 0;
             // 
             // flpInfo
             // 
@@ -182,20 +202,31 @@
             this.flpInfo.Controls.Add(this.label1);
             this.flpInfo.Controls.Add(this.label2);
             this.flpInfo.Dock = System.Windows.Forms.DockStyle.Top;
+            this.flpInfo.Location = new System.Drawing.Point(0, 0);
+            this.flpInfo.Name = "flpInfo";
             this.flpInfo.Padding = new System.Windows.Forms.Padding(24);
-            this.flpInfo.Size = new System.Drawing.Size(1625, 197);
+            this.flpInfo.Size = new System.Drawing.Size(1625, 169);
+            this.flpInfo.TabIndex = 0;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.flpInfo.SetFlowBreak(this.label1, true);
             this.label1.Font = new System.Drawing.Font("Trebuchet MS", 36F, System.Drawing.FontStyle.Bold);
+            this.label1.Location = new System.Drawing.Point(27, 24);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(1091, 76);
+            this.label1.TabIndex = 0;
             this.label1.Text = "METRO HO CHI MINH LINE – OVERVIEW";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Verdana", 22.2F);
+            this.label2.Location = new System.Drawing.Point(27, 100);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(343, 45);
+            this.label2.TabIndex = 1;
             this.label2.Text = "Create OCT 2025";
             // 
             // pnlHero
@@ -203,12 +234,21 @@
             this.pnlHero.BackColor = System.Drawing.Color.Black;
             this.pnlHero.Controls.Add(this.pbHero);
             this.pnlHero.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlHero.Location = new System.Drawing.Point(0, 0);
+            this.pnlHero.Name = "pnlHero";
             this.pnlHero.Size = new System.Drawing.Size(1625, 520);
+            this.pnlHero.TabIndex = 1;
             // 
             // pbHero
             // 
             this.pbHero.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pbHero.Image = global::MeTroMap_HCM.Properties.Resources.backgroundFrmMain;
+            this.pbHero.Location = new System.Drawing.Point(0, 0);
+            this.pbHero.Name = "pbHero";
+            this.pbHero.Size = new System.Drawing.Size(1625, 520);
             this.pbHero.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pbHero.TabIndex = 0;
+            this.pbHero.TabStop = false;
             // 
             // lblWelcome
             // 
@@ -216,7 +256,9 @@
             this.lblWelcome.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.lblWelcome.ForeColor = System.Drawing.Color.DimGray;
             this.lblWelcome.Location = new System.Drawing.Point(32, 65);
+            this.lblWelcome.Name = "lblWelcome";
             this.lblWelcome.Size = new System.Drawing.Size(0, 23);
+            this.lblWelcome.TabIndex = 0;
             this.lblWelcome.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // frmMain
@@ -228,6 +270,7 @@
             this.Controls.Add(this.pnlMain);
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Times New Roman", 13.8F);
+            this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MetroMap HCM - Hệ thống quản lý và tra cứu Metro";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -269,5 +312,7 @@
         private System.Windows.Forms.FlowLayoutPanel flpInfo;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ToolStripMenuItem thôngTinVéToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ảnhCácTuyếnToolStripMenuItem;
     }
 }

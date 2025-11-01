@@ -63,6 +63,16 @@ namespace MeTroMap_HCM.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _3_ban_do_metro_tphcm_cap_nhat_moi_nhat {
+            get {
+                object obj = ResourceManager.GetObject("3-ban-do-metro-tphcm-cap-nhat-moi-nhat", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap backgroundFrmMain {
             get {
                 object obj = ResourceManager.GetObject("backgroundFrmMain", resourceCulture);

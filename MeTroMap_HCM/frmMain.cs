@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MeTroMap_HCM;
+using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Text;
@@ -73,7 +74,7 @@ namespace MetroMap_HCM
         private void mniDatVe_Click(object sender, EventArgs e) => OpenChildForm(new frmDatVe());
         private void mniTaiKhoanNguoiDung_Click(object sender, EventArgs e) => OpenChildForm(new frmTaiKhoanNguoiDung());
         private void mniTaiKhoanNhanVien_Click(object sender, EventArgs e) => OpenChildForm(new frmTaiKhoanNhanVien());
-
+        
         private void mniDangXuat_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Bạn có chắc muốn đăng xuất?", "Xác nhận", MessageBoxButtons.YesNo) == DialogResult.Yes)
@@ -88,6 +89,68 @@ namespace MetroMap_HCM
                 Close();
             }
         }
+        private string _maVe, _tuyenDi, _tuyenDen, _gaDi, _gaDen, _loaiVe;
+        private double _giaVe;
+        private bool _hasTicket = false;
+        private DateTime _ngayBatDau, _ngayHetHan;
+
+        // Hàm nhận dữ liệu từ frmThanhToan
+        public void LuuThongTinVe(string maVe, string tuyenDi, string tuyenDen,
+                                   string gaDi, string gaDen, string loaiVe, double giaVe)
+        {
+            _maVe = maVe;
+            _tuyenDi = tuyenDi;
+            _tuyenDen = tuyenDen;
+            _gaDi = gaDi;
+            _gaDen = gaDen;
+            _loaiVe = loaiVe;
+            _giaVe = giaVe;
+
+            // Ngày bắt đầu = hiện tại, hết hạn = 1 tháng sau
+            _ngayBatDau = DateTime.Now;
+            _ngayHetHan = DateTime.Now.AddMonths(1);
+
+            _hasTicket = true;
+        }
+
+        // Mở frmThongTinVe
+        private void thôngTinVéToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (_hasTicket)
+            {
+                // Truyền ngày bắt đầu và hết hạn hiện tại
+                var f = new frmThongTinVe(_maVe, _tuyenDi, _tuyenDen,
+                                          _gaDi, _gaDen, _loaiVe, _giaVe,
+                                          _ngayBatDau, _ngayHetHan);
+
+                // Đăng ký callback nhận dữ liệu cập nhật từ frmThongTinVe
+                f.ThongTinVeCapNhat += (maVe, tuyenDi, tuyenDen, gaDi, gaDen, loaiVe, giaVe, ngayBatDau, ngayHetHan) =>
+                {
+                    _maVe = maVe;
+                    _tuyenDi = tuyenDi;
+                    _tuyenDen = tuyenDen;
+                    _gaDi = gaDi;
+                    _gaDen = gaDen;
+                    _loaiVe = loaiVe;
+                    _giaVe = giaVe;
+
+                    // Cập nhật ngày bắt đầu và hết hạn
+                    _ngayBatDau = ngayBatDau;
+                    _ngayHetHan = ngayHetHan;
+
+                    // Nếu vé bị hủy, đánh dấu không còn vé
+                    _hasTicket = !string.IsNullOrEmpty(_maVe);
+                };
+
+                OpenChildForm(f);
+            }
+            else
+            {
+                MessageBox.Show("Hiện chưa có vé nào được lưu. Hãy thanh toán vé trước!",
+                                "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+        private void ảnhCácTuyếnToolStripMenuItem_Click(object sender, EventArgs e) => OpenChildForm(new FormAnhCacTuyen());
 
     }
 }

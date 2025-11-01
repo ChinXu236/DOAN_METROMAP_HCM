@@ -1,4 +1,8 @@
-﻿namespace MetroMap_HCM
+﻿using System;
+using System.Windows.Forms;
+using System.Drawing;
+
+namespace MetroMap_HCM
 {
     partial class frmDatVe
     {
@@ -14,149 +18,187 @@
         #region Windows Form Designer generated code
         private void InitializeComponent()
         {
-            this.lblTuyen = new System.Windows.Forms.Label();
-            this.cboTuyen = new System.Windows.Forms.ComboBox();
+            this.grpChuyenDi = new System.Windows.Forms.GroupBox();
+            this.lblTuyenDi = new System.Windows.Forms.Label();
+            this.cboTuyenDi = new System.Windows.Forms.ComboBox();
+            this.lblTuyenDen = new System.Windows.Forms.Label();
+            this.cboTuyenDen = new System.Windows.Forms.ComboBox();
             this.lblGaDi = new System.Windows.Forms.Label();
             this.cboGaDi = new System.Windows.Forms.ComboBox();
             this.lblGaDen = new System.Windows.Forms.Label();
             this.cboGaDen = new System.Windows.Forms.ComboBox();
+            this.grpVe = new System.Windows.Forms.GroupBox();
+            this.lblLoai = new System.Windows.Forms.Label();
+            this.cboLoai = new System.Windows.Forms.ComboBox();
             this.lblGia = new System.Windows.Forms.Label();
-            this.giaVe = new System.Windows.Forms.TextBox();
+            this.txtGiave = new System.Windows.Forms.TextBox();
             this.btnDatVe = new System.Windows.Forms.Button();
-            this.sd = new System.Windows.Forms.Label();
-            this.numSoLuong = new System.Windows.Forms.NumericUpDown();
-            ((System.ComponentModel.ISupportInitialize)(this.numSoLuong)).BeginInit();
+            this.grpChuyenDi.SuspendLayout();
+            this.grpVe.SuspendLayout();
             this.SuspendLayout();
             // 
-            // lblTuyen
+            // grpChuyenDi
             // 
-            this.lblTuyen.AutoSize = true;
-            this.lblTuyen.Location = new System.Drawing.Point(40, 40);
-            this.lblTuyen.Name = "lblTuyen";
-            this.lblTuyen.Size = new System.Drawing.Size(76, 16);
-            this.lblTuyen.TabIndex = 0;
-            this.lblTuyen.Text = "Chọn tuyến:";
+            this.grpChuyenDi.Controls.Add(this.lblTuyenDi);
+            this.grpChuyenDi.Controls.Add(this.cboTuyenDi);
+            this.grpChuyenDi.Controls.Add(this.lblTuyenDen);
+            this.grpChuyenDi.Controls.Add(this.cboTuyenDen);
+            this.grpChuyenDi.Controls.Add(this.lblGaDi);
+            this.grpChuyenDi.Controls.Add(this.cboGaDi);
+            this.grpChuyenDi.Controls.Add(this.lblGaDen);
+            this.grpChuyenDi.Controls.Add(this.cboGaDen);
+            this.grpChuyenDi.Location = new System.Drawing.Point(20, 20);
+            this.grpChuyenDi.Name = "grpChuyenDi";
+            this.grpChuyenDi.Size = new System.Drawing.Size(1094, 137);
+            this.grpChuyenDi.TabIndex = 0;
+            this.grpChuyenDi.TabStop = false;
+            this.grpChuyenDi.Text = "Thông tin chuyến đi";
             // 
-            // cboTuyen
+            // lblTuyenDi
             // 
-            this.cboTuyen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboTuyen.Location = new System.Drawing.Point(196, 37);
-            this.cboTuyen.Name = "cboTuyen";
-            this.cboTuyen.Size = new System.Drawing.Size(364, 24);
-            this.cboTuyen.TabIndex = 1;
-            this.cboTuyen.SelectedIndexChanged += new System.EventHandler(this.cboTuyen_SelectedIndexChanged);
+            this.lblTuyenDi.Location = new System.Drawing.Point(10, 30);
+            this.lblTuyenDi.Name = "lblTuyenDi";
+            this.lblTuyenDi.Size = new System.Drawing.Size(80, 20);
+            this.lblTuyenDi.TabIndex = 0;
+            this.lblTuyenDi.Text = "Tuyến đi:";
+            // 
+            // cboTuyenDi
+            // 
+            this.cboTuyenDi.Location = new System.Drawing.Point(90, 27);
+            this.cboTuyenDi.Name = "cboTuyenDi";
+            this.cboTuyenDi.Size = new System.Drawing.Size(431, 24);
+            this.cboTuyenDi.TabIndex = 1;
+            // 
+            // lblTuyenDen
+            // 
+            this.lblTuyenDen.Location = new System.Drawing.Point(559, 33);
+            this.lblTuyenDen.Name = "lblTuyenDen";
+            this.lblTuyenDen.Size = new System.Drawing.Size(120, 21);
+            this.lblTuyenDen.TabIndex = 2;
+            this.lblTuyenDen.Text = "Tuyến đến:";
+            // 
+            // cboTuyenDen
+            // 
+            this.cboTuyenDen.Location = new System.Drawing.Point(685, 30);
+            this.cboTuyenDen.Name = "cboTuyenDen";
+            this.cboTuyenDen.Size = new System.Drawing.Size(394, 24);
+            this.cboTuyenDen.TabIndex = 3;
             // 
             // lblGaDi
             // 
-            this.lblGaDi.AutoSize = true;
-            this.lblGaDi.Location = new System.Drawing.Point(40, 80);
+            this.lblGaDi.Location = new System.Drawing.Point(10, 70);
             this.lblGaDi.Name = "lblGaDi";
-            this.lblGaDi.Size = new System.Drawing.Size(42, 16);
-            this.lblGaDi.TabIndex = 2;
+            this.lblGaDi.Size = new System.Drawing.Size(80, 20);
+            this.lblGaDi.TabIndex = 4;
             this.lblGaDi.Text = "Ga đi:";
             // 
             // cboGaDi
             // 
-            this.cboGaDi.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboGaDi.Location = new System.Drawing.Point(196, 77);
+            this.cboGaDi.Location = new System.Drawing.Point(90, 67);
             this.cboGaDi.Name = "cboGaDi";
-            this.cboGaDi.Size = new System.Drawing.Size(364, 24);
-            this.cboGaDi.TabIndex = 3;
+            this.cboGaDi.Size = new System.Drawing.Size(431, 24);
+            this.cboGaDi.TabIndex = 5;
             // 
             // lblGaDen
             // 
-            this.lblGaDen.AutoSize = true;
-            this.lblGaDen.Location = new System.Drawing.Point(40, 120);
+            this.lblGaDen.Location = new System.Drawing.Point(559, 67);
             this.lblGaDen.Name = "lblGaDen";
-            this.lblGaDen.Size = new System.Drawing.Size(54, 16);
-            this.lblGaDen.TabIndex = 4;
+            this.lblGaDen.Size = new System.Drawing.Size(80, 20);
+            this.lblGaDen.TabIndex = 6;
             this.lblGaDen.Text = "Ga đến:";
             // 
             // cboGaDen
             // 
-            this.cboGaDen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboGaDen.Location = new System.Drawing.Point(196, 117);
+            this.cboGaDen.Location = new System.Drawing.Point(685, 70);
             this.cboGaDen.Name = "cboGaDen";
-            this.cboGaDen.Size = new System.Drawing.Size(364, 24);
-            this.cboGaDen.TabIndex = 5;
+            this.cboGaDen.Size = new System.Drawing.Size(394, 24);
+            this.cboGaDen.TabIndex = 7;
+            // 
+            // grpVe
+            // 
+            this.grpVe.Controls.Add(this.lblLoai);
+            this.grpVe.Controls.Add(this.cboLoai);
+            this.grpVe.Controls.Add(this.lblGia);
+            this.grpVe.Controls.Add(this.txtGiave);
+            this.grpVe.Location = new System.Drawing.Point(20, 180);
+            this.grpVe.Name = "grpVe";
+            this.grpVe.Size = new System.Drawing.Size(1094, 101);
+            this.grpVe.TabIndex = 1;
+            this.grpVe.TabStop = false;
+            this.grpVe.Text = "Thông tin vé";
+            // 
+            // lblLoai
+            // 
+            this.lblLoai.Location = new System.Drawing.Point(10, 30);
+            this.lblLoai.Name = "lblLoai";
+            this.lblLoai.Size = new System.Drawing.Size(80, 20);
+            this.lblLoai.TabIndex = 0;
+            this.lblLoai.Text = "Loại vé:";
+            // 
+            // cboLoai
+            // 
+            this.cboLoai.Location = new System.Drawing.Point(90, 27);
+            this.cboLoai.Name = "cboLoai";
+            this.cboLoai.Size = new System.Drawing.Size(253, 24);
+            this.cboLoai.TabIndex = 1;
             // 
             // lblGia
             // 
-            this.lblGia.AutoSize = true;
-            this.lblGia.Location = new System.Drawing.Point(40, 186);
+            this.lblGia.Location = new System.Drawing.Point(10, 65);
             this.lblGia.Name = "lblGia";
-            this.lblGia.Size = new System.Drawing.Size(88, 16);
-            this.lblGia.TabIndex = 6;
+            this.lblGia.Size = new System.Drawing.Size(80, 20);
+            this.lblGia.TabIndex = 2;
             this.lblGia.Text = "Giá vé (VNĐ):";
             // 
-            // giaVe
+            // txtGiave
             // 
-            this.giaVe.Location = new System.Drawing.Point(196, 183);
-            this.giaVe.Name = "giaVe";
-            this.giaVe.ReadOnly = true;
-            this.giaVe.Size = new System.Drawing.Size(185, 22);
-            this.giaVe.TabIndex = 7;
+            this.txtGiave.Location = new System.Drawing.Point(90, 62);
+            this.txtGiave.Name = "txtGiave";
+            this.txtGiave.ReadOnly = true;
+            this.txtGiave.Size = new System.Drawing.Size(668, 22);
+            this.txtGiave.TabIndex = 3;
             // 
             // btnDatVe
             // 
-            this.btnDatVe.Location = new System.Drawing.Point(444, 159);
+            this.btnDatVe.Location = new System.Drawing.Point(463, 307);
             this.btnDatVe.Name = "btnDatVe";
-            this.btnDatVe.Size = new System.Drawing.Size(116, 43);
-            this.btnDatVe.TabIndex = 9;
+            this.btnDatVe.Size = new System.Drawing.Size(100, 40);
+            this.btnDatVe.TabIndex = 2;
             this.btnDatVe.Text = "Đặt vé";
-            this.btnDatVe.Click += new System.EventHandler(this.btnThanhToan_Click);
-            // 
-            // sd
-            // 
-            this.sd.AutoSize = true;
-            this.sd.Location = new System.Drawing.Point(40, 151);
-            this.sd.Name = "sd";
-            this.sd.Size = new System.Drawing.Size(81, 16);
-            this.sd.TabIndex = 10;
-            this.sd.Text = "Số lượng vé:";
-            // 
-            // numSoLuong
-            // 
-            this.numSoLuong.Location = new System.Drawing.Point(196, 151);
-            this.numSoLuong.Name = "numSoLuong";
-            this.numSoLuong.Size = new System.Drawing.Size(60, 22);
-            this.numSoLuong.TabIndex = 11;
             // 
             // frmDatVe
             // 
-            this.ClientSize = new System.Drawing.Size(589, 234);
-            this.Controls.Add(this.numSoLuong);
-            this.Controls.Add(this.sd);
-            this.Controls.Add(this.lblTuyen);
-            this.Controls.Add(this.cboTuyen);
-            this.Controls.Add(this.lblGaDi);
-            this.Controls.Add(this.cboGaDi);
-            this.Controls.Add(this.lblGaDen);
-            this.Controls.Add(this.cboGaDen);
-            this.Controls.Add(this.lblGia);
-            this.Controls.Add(this.giaVe);
+            this.ClientSize = new System.Drawing.Size(1146, 486);
+            this.Controls.Add(this.grpChuyenDi);
+            this.Controls.Add(this.grpVe);
             this.Controls.Add(this.btnDatVe);
             this.Name = "frmDatVe";
             this.Text = "Đặt vé Metro";
             this.Load += new System.EventHandler(this.frmDatVe_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.numSoLuong)).EndInit();
+            this.grpChuyenDi.ResumeLayout(false);
+            this.grpVe.ResumeLayout(false);
+            this.grpVe.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
-
         #endregion
 
-        private System.Windows.Forms.Label lblTuyen;
-        private System.Windows.Forms.ComboBox cboTuyen;
-        private System.Windows.Forms.Label lblGaDi;
-        private System.Windows.Forms.ComboBox cboGaDi;
-        private System.Windows.Forms.Label lblGaDen;
-        private System.Windows.Forms.ComboBox cboGaDen;
-        private System.Windows.Forms.Label lblGia;
-        private System.Windows.Forms.TextBox giaVe;
-        private System.Windows.Forms.Button btnDatVe;
-        private System.Windows.Forms.Label sd;
-        private System.Windows.Forms.NumericUpDown numSoLuong;
+        private GroupBox grpChuyenDi;
+        private Label lblTuyenDi;
+        private ComboBox cboTuyenDi;
+        private Label lblTuyenDen;
+        private ComboBox cboTuyenDen;
+        private Label lblGaDi;
+        private ComboBox cboGaDi;
+        private Label lblGaDen;
+        private ComboBox cboGaDen;
+
+        private GroupBox grpVe;
+        private Label lblLoai;
+        private ComboBox cboLoai;
+        private Label lblGia;
+        private TextBox txtGiave;
+
+        private Button btnDatVe;
     }
 }
