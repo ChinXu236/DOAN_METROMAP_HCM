@@ -34,6 +34,8 @@
             this.btnChiTiet = new System.Windows.Forms.Button();
             this.BtnQuayLai = new System.Windows.Forms.Button();
             this.pnlTop = new System.Windows.Forms.Panel();
+            this.chkDen = new System.Windows.Forms.CheckBox();
+            this.chkXP = new System.Windows.Forms.CheckBox();
             this.cboGioD = new System.Windows.Forms.ComboBox();
             this.cboGioXP = new System.Windows.Forms.ComboBox();
             this.cboGaDen = new System.Windows.Forms.ComboBox();
@@ -49,8 +51,6 @@
             this.cboGaDi = new System.Windows.Forms.ComboBox();
             this.lxtGioD = new System.Windows.Forms.Label();
             this.lxtGioXP = new System.Windows.Forms.Label();
-            this.chkXP = new System.Windows.Forms.CheckBox();
-            this.chkDen = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvLoTrinh)).BeginInit();
             this.pnlTop.SuspendLayout();
             this.tlpSearch.SuspendLayout();
@@ -72,7 +72,7 @@
             // lblGaĐến
             // 
             this.lblGaĐến.AutoSize = true;
-            this.lblGaĐến.Location = new System.Drawing.Point(62, 175);
+            this.lblGaĐến.Location = new System.Drawing.Point(36, 202);
             this.lblGaĐến.Name = "lblGaĐến";
             this.lblGaĐến.Size = new System.Drawing.Size(78, 26);
             this.lblGaĐến.TabIndex = 1;
@@ -85,7 +85,7 @@
             this.btnTimDuong.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTimDuong.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTimDuong.ForeColor = System.Drawing.Color.White;
-            this.btnTimDuong.Location = new System.Drawing.Point(576, 47);
+            this.btnTimDuong.Location = new System.Drawing.Point(606, 47);
             this.btnTimDuong.Margin = new System.Windows.Forms.Padding(8, 0, 0, 0);
             this.btnTimDuong.Name = "btnTimDuong";
             this.btnTimDuong.Size = new System.Drawing.Size(140, 40);
@@ -96,7 +96,7 @@
             // btnDoiChieu
             // 
             this.btnDoiChieu.BackColor = System.Drawing.Color.PowderBlue;
-            this.btnDoiChieu.Location = new System.Drawing.Point(443, 3);
+            this.btnDoiChieu.Location = new System.Drawing.Point(473, 3);
             this.btnDoiChieu.Name = "btnDoiChieu";
             this.btnDoiChieu.Size = new System.Drawing.Size(50, 41);
             this.btnDoiChieu.TabIndex = 5;
@@ -116,13 +116,13 @@
             this.Tuyen,
             this.KhoangCach,
             this.GioXuatPhat});
-            this.dgvLoTrinh.Location = new System.Drawing.Point(199, 369);
+            this.dgvLoTrinh.Location = new System.Drawing.Point(138, 298);
             this.dgvLoTrinh.Name = "dgvLoTrinh";
             this.dgvLoTrinh.ReadOnly = true;
             this.dgvLoTrinh.RowHeadersVisible = false;
             this.dgvLoTrinh.RowHeadersWidth = 51;
             this.dgvLoTrinh.RowTemplate.Height = 40;
-            this.dgvLoTrinh.Size = new System.Drawing.Size(1288, 302);
+            this.dgvLoTrinh.Size = new System.Drawing.Size(1288, 356);
             this.dgvLoTrinh.TabIndex = 6;
             // 
             // STT
@@ -222,16 +222,34 @@
             this.pnlTop.Controls.Add(this.lblGaĐến);
             this.pnlTop.Controls.Add(this.lxtGioD);
             this.pnlTop.Controls.Add(this.lxtGioXP);
-            this.pnlTop.Location = new System.Drawing.Point(199, 12);
+            this.pnlTop.Location = new System.Drawing.Point(138, 10);
             this.pnlTop.Name = "pnlTop";
             this.pnlTop.Padding = new System.Windows.Forms.Padding(16);
-            this.pnlTop.Size = new System.Drawing.Size(1288, 299);
+            this.pnlTop.Size = new System.Drawing.Size(1288, 265);
             this.pnlTop.TabIndex = 9;
+            // 
+            // chkDen
+            // 
+            this.chkDen.AutoSize = true;
+            this.chkDen.Location = new System.Drawing.Point(1071, 202);
+            this.chkDen.Name = "chkDen";
+            this.chkDen.Size = new System.Drawing.Size(18, 17);
+            this.chkDen.TabIndex = 19;
+            this.chkDen.UseVisualStyleBackColor = true;
+            // 
+            // chkXP
+            // 
+            this.chkXP.AutoSize = true;
+            this.chkXP.Location = new System.Drawing.Point(1071, 152);
+            this.chkXP.Name = "chkXP";
+            this.chkXP.Size = new System.Drawing.Size(18, 17);
+            this.chkXP.TabIndex = 18;
+            this.chkXP.UseVisualStyleBackColor = true;
             // 
             // cboGioD
             // 
             this.cboGioD.FormattingEnabled = true;
-            this.cboGioD.Location = new System.Drawing.Point(228, 263);
+            this.cboGioD.Location = new System.Drawing.Point(839, 199);
             this.cboGioD.Name = "cboGioD";
             this.cboGioD.Size = new System.Drawing.Size(226, 34);
             this.cboGioD.TabIndex = 17;
@@ -239,7 +257,7 @@
             // cboGioXP
             // 
             this.cboGioXP.FormattingEnabled = true;
-            this.cboGioXP.Location = new System.Drawing.Point(228, 223);
+            this.cboGioXP.Location = new System.Drawing.Point(839, 143);
             this.cboGioXP.Name = "cboGioXP";
             this.cboGioXP.Size = new System.Drawing.Size(226, 34);
             this.cboGioXP.TabIndex = 16;
@@ -247,7 +265,7 @@
             // cboGaDen
             // 
             this.cboGaDen.FormattingEnabled = true;
-            this.cboGaDen.Location = new System.Drawing.Point(228, 163);
+            this.cboGaDen.Location = new System.Drawing.Point(202, 199);
             this.cboGaDen.Name = "cboGaDen";
             this.cboGaDen.Size = new System.Drawing.Size(226, 34);
             this.cboGaDen.TabIndex = 15;
@@ -255,7 +273,7 @@
             // cboTuyenDen
             // 
             this.cboTuyenDen.FormattingEnabled = true;
-            this.cboTuyenDen.Location = new System.Drawing.Point(228, 123);
+            this.cboTuyenDen.Location = new System.Drawing.Point(202, 139);
             this.cboTuyenDen.Name = "cboTuyenDen";
             this.cboTuyenDen.Size = new System.Drawing.Size(226, 34);
             this.cboTuyenDen.TabIndex = 14;
@@ -263,7 +281,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(62, 130);
+            this.label2.Location = new System.Drawing.Point(36, 146);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(111, 26);
             this.label2.TabIndex = 5;
@@ -273,7 +291,7 @@
             // tlpSearch
             // 
             this.tlpSearch.ColumnCount = 6;
-            this.tlpSearch.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 80F));
+            this.tlpSearch.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 110F));
             this.tlpSearch.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 360F));
             this.tlpSearch.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 63F));
             this.tlpSearch.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 65F));
@@ -288,7 +306,7 @@
             this.tlpSearch.Controls.Add(this.lblTuyenDi, 0, 0);
             this.tlpSearch.Controls.Add(this.cboTuyenDi, 1, 0);
             this.tlpSearch.Controls.Add(this.cboGaDi, 1, 1);
-            this.tlpSearch.Location = new System.Drawing.Point(59, 19);
+            this.tlpSearch.Location = new System.Drawing.Point(33, 19);
             this.tlpSearch.Name = "tlpSearch";
             this.tlpSearch.RowCount = 2;
             this.tlpSearch.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 47F));
@@ -299,9 +317,9 @@
             // flpRow3
             // 
             this.flpRow3.Controls.Add(this.BtnQuayLai);
-            this.flpRow3.Location = new System.Drawing.Point(1012, 50);
+            this.flpRow3.Location = new System.Drawing.Point(1042, 50);
             this.flpRow3.Name = "flpRow3";
-            this.flpRow3.Size = new System.Drawing.Size(193, 44);
+            this.flpRow3.Size = new System.Drawing.Size(163, 44);
             this.flpRow3.TabIndex = 10;
             this.flpRow3.WrapContents = false;
             // 
@@ -309,7 +327,7 @@
             // 
             this.flpRow1.Controls.Add(this.dtvThoiGian);
             this.flpRow1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.flpRow1.Location = new System.Drawing.Point(571, 3);
+            this.flpRow1.Location = new System.Drawing.Point(601, 3);
             this.flpRow1.Name = "flpRow1";
             this.flpRow1.Size = new System.Drawing.Size(402, 41);
             this.flpRow1.TabIndex = 6;
@@ -325,9 +343,9 @@
             // flpRow2
             // 
             this.flpRow2.Controls.Add(this.btnChiTiet);
-            this.flpRow2.Location = new System.Drawing.Point(1012, 3);
+            this.flpRow2.Location = new System.Drawing.Point(1042, 3);
             this.flpRow2.Name = "flpRow2";
-            this.flpRow2.Size = new System.Drawing.Size(193, 41);
+            this.flpRow2.Size = new System.Drawing.Size(163, 41);
             this.flpRow2.TabIndex = 7;
             // 
             // lblTuyenDi
@@ -335,7 +353,7 @@
             this.lblTuyenDi.AutoSize = true;
             this.lblTuyenDi.Location = new System.Drawing.Point(3, 0);
             this.lblTuyenDi.Name = "lblTuyenDi";
-            this.lblTuyenDi.Size = new System.Drawing.Size(71, 47);
+            this.lblTuyenDi.Size = new System.Drawing.Size(95, 26);
             this.lblTuyenDi.TabIndex = 11;
             this.lblTuyenDi.Text = "Tuyến đi";
             this.lblTuyenDi.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -343,7 +361,7 @@
             // cboTuyenDi
             // 
             this.cboTuyenDi.FormattingEnabled = true;
-            this.cboTuyenDi.Location = new System.Drawing.Point(83, 3);
+            this.cboTuyenDi.Location = new System.Drawing.Point(113, 3);
             this.cboTuyenDi.Name = "cboTuyenDi";
             this.cboTuyenDi.Size = new System.Drawing.Size(312, 34);
             this.cboTuyenDi.TabIndex = 12;
@@ -351,7 +369,7 @@
             // cboGaDi
             // 
             this.cboGaDi.FormattingEnabled = true;
-            this.cboGaDi.Location = new System.Drawing.Point(83, 50);
+            this.cboGaDi.Location = new System.Drawing.Point(113, 50);
             this.cboGaDi.Name = "cboGaDi";
             this.cboGaDi.Size = new System.Drawing.Size(312, 34);
             this.cboGaDi.TabIndex = 13;
@@ -359,7 +377,7 @@
             // lxtGioD
             // 
             this.lxtGioD.AutoSize = true;
-            this.lxtGioD.Location = new System.Drawing.Point(62, 272);
+            this.lxtGioD.Location = new System.Drawing.Point(673, 202);
             this.lxtGioD.Name = "lxtGioD";
             this.lxtGioD.Size = new System.Drawing.Size(91, 26);
             this.lxtGioD.TabIndex = 2;
@@ -368,29 +386,11 @@
             // lxtGioXP
             // 
             this.lxtGioXP.AutoSize = true;
-            this.lxtGioXP.Location = new System.Drawing.Point(62, 226);
+            this.lxtGioXP.Location = new System.Drawing.Point(673, 146);
             this.lxtGioXP.Name = "lxtGioXP";
             this.lxtGioXP.Size = new System.Drawing.Size(137, 26);
             this.lxtGioXP.TabIndex = 1;
             this.lxtGioXP.Text = "Giờ xuất phát";
-            // 
-            // chkXP
-            // 
-            this.chkXP.AutoSize = true;
-            this.chkXP.Location = new System.Drawing.Point(460, 232);
-            this.chkXP.Name = "chkXP";
-            this.chkXP.Size = new System.Drawing.Size(18, 17);
-            this.chkXP.TabIndex = 18;
-            this.chkXP.UseVisualStyleBackColor = true;
-            // 
-            // chkDen
-            // 
-            this.chkDen.AutoSize = true;
-            this.chkDen.Location = new System.Drawing.Point(460, 272);
-            this.chkDen.Name = "chkDen";
-            this.chkDen.Size = new System.Drawing.Size(18, 17);
-            this.chkDen.TabIndex = 19;
-            this.chkDen.UseVisualStyleBackColor = true;
             // 
             // frmTimDuong
             // 

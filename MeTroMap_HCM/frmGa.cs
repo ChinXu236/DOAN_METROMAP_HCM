@@ -20,6 +20,14 @@ namespace MetroMap_HCM
         { 
             LoadTuyenCombo();
             LoadDanhSachGa();
+
+            Control parent = dgvGa.Parent;
+            void Center() => dgvGa.Left = (parent.ClientSize.Width - dgvGa.Width) / 2;
+
+            this.Resize += (s, ev) => Center();
+            parent.Resize += (s, ev) => Center();
+            Center();
+            dgvGa.Anchor = AnchorStyles.Top; // không kéo dãn theo chiều ngang
         }
 
         private void LoadTuyenCombo()
