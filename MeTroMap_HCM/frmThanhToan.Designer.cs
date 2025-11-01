@@ -98,7 +98,7 @@
             // 
             this.lblLoai.AutoSize = true;
             this.lblLoai.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.lblLoai.Location = new System.Drawing.Point(6, 204);
+            this.lblLoai.Location = new System.Drawing.Point(6, 213);
             this.lblLoai.Name = "lblLoai";
             this.lblLoai.Size = new System.Drawing.Size(68, 20);
             this.lblLoai.TabIndex = 6;
@@ -108,7 +108,7 @@
             // 
             this.lblSoLuong.AutoSize = true;
             this.lblSoLuong.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.lblSoLuong.Location = new System.Drawing.Point(6, 242);
+            this.lblSoLuong.Location = new System.Drawing.Point(6, 253);
             this.lblSoLuong.Name = "lblSoLuong";
             this.lblSoLuong.Size = new System.Drawing.Size(101, 20);
             this.lblSoLuong.TabIndex = 5;
@@ -128,7 +128,7 @@
             // 
             this.lblGia.AutoSize = true;
             this.lblGia.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.lblGia.Location = new System.Drawing.Point(6, 276);
+            this.lblGia.Location = new System.Drawing.Point(6, 293);
             this.lblGia.Name = "lblGia";
             this.lblGia.Size = new System.Drawing.Size(57, 20);
             this.lblGia.TabIndex = 3;
@@ -138,7 +138,7 @@
             // 
             this.lblGaDen.AutoSize = true;
             this.lblGaDen.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
-            this.lblGaDen.Location = new System.Drawing.Point(6, 166);
+            this.lblGaDen.Location = new System.Drawing.Point(6, 171);
             this.lblGaDen.Name = "lblGaDen";
             this.lblGaDen.Size = new System.Drawing.Size(68, 20);
             this.lblGaDen.TabIndex = 2;
@@ -172,7 +172,6 @@
             this.lblDemNguoc.Size = new System.Drawing.Size(155, 16);
             this.lblDemNguoc.TabIndex = 4;
             this.lblDemNguoc.Text = "Hiển thị đếm ngược 05:00";
-            this.lblDemNguoc.Click += new System.EventHandler(this.lblDemNguoc_Click);
             // 
             // picQR
             // 

@@ -1,4 +1,5 @@
-﻿using MeTroMap_HCM;
+﻿using MetroMap_HCM;
+using MeTroMap_HCM;
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -74,7 +75,7 @@ namespace MetroMap_HCM
         private void mniDatVe_Click(object sender, EventArgs e) => OpenChildForm(new frmDatVe());
         private void mniTaiKhoanNguoiDung_Click(object sender, EventArgs e) => OpenChildForm(new frmTaiKhoanNguoiDung());
         private void mniTaiKhoanNhanVien_Click(object sender, EventArgs e) => OpenChildForm(new frmTaiKhoanNhanVien());
-        
+
         private void mniDangXuat_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Bạn có chắc muốn đăng xuất?", "Xác nhận", MessageBoxButtons.YesNo) == DialogResult.Yes)
@@ -89,6 +90,7 @@ namespace MetroMap_HCM
                 Close();
             }
         }
+
         private string _maVe, _tuyenDi, _tuyenDen, _gaDi, _gaDen, _loaiVe;
         private double _giaVe;
         private bool _hasTicket = false;
@@ -96,7 +98,7 @@ namespace MetroMap_HCM
 
         // Hàm nhận dữ liệu từ frmThanhToan
         public void LuuThongTinVe(string maVe, string tuyenDi, string tuyenDen,
-                                   string gaDi, string gaDen, string loaiVe, double giaVe)
+                   string gaDi, string gaDen, string loaiVe, double giaVe)
         {
             _maVe = maVe;
             _tuyenDi = tuyenDi;
@@ -106,11 +108,31 @@ namespace MetroMap_HCM
             _loaiVe = loaiVe;
             _giaVe = giaVe;
 
-            // Ngày bắt đầu = hiện tại, hết hạn = 1 tháng sau
-            _ngayBatDau = DateTime.Now;
-            _ngayHetHan = DateTime.Now.AddMonths(1);
-
             _hasTicket = true;
+
+            string loai = loaiVe.ToLower();
+
+            if (loai == "vé thường" || loai == "1 lần")
+            {
+                _ngayBatDau = DateTime.MinValue;
+                _ngayHetHan = DateTime.MinValue;
+            }
+            else if (loai == "vé ngày" || loai.Contains("ngày"))
+            {
+                _ngayBatDau = DateTime.Now;
+                _ngayHetHan = DateTime.Now;
+            }
+            else
+            {
+                int soThang = 1;
+                if (loai.Contains("1 tháng")) soThang = 1;
+                else if (loai.Contains("3 tháng")) soThang = 3;
+                else if (loai.Contains("6 tháng")) soThang = 6;
+                else if (loai.Contains("1 năm")) soThang = 12;
+
+                _ngayBatDau = DateTime.Now;
+                _ngayHetHan = DateTime.Now.AddMonths(soThang);
+            }
         }
 
         // Mở frmThongTinVe
@@ -118,12 +140,10 @@ namespace MetroMap_HCM
         {
             if (_hasTicket)
             {
-                // Truyền ngày bắt đầu và hết hạn hiện tại
                 var f = new frmThongTinVe(_maVe, _tuyenDi, _tuyenDen,
                                           _gaDi, _gaDen, _loaiVe, _giaVe,
                                           _ngayBatDau, _ngayHetHan);
 
-                // Đăng ký callback nhận dữ liệu cập nhật từ frmThongTinVe
                 f.ThongTinVeCapNhat += (maVe, tuyenDi, tuyenDen, gaDi, gaDen, loaiVe, giaVe, ngayBatDau, ngayHetHan) =>
                 {
                     _maVe = maVe;
@@ -134,11 +154,9 @@ namespace MetroMap_HCM
                     _loaiVe = loaiVe;
                     _giaVe = giaVe;
 
-                    // Cập nhật ngày bắt đầu và hết hạn
                     _ngayBatDau = ngayBatDau;
                     _ngayHetHan = ngayHetHan;
 
-                    // Nếu vé bị hủy, đánh dấu không còn vé
                     _hasTicket = !string.IsNullOrEmpty(_maVe);
                 };
 
@@ -146,11 +164,11 @@ namespace MetroMap_HCM
             }
             else
             {
-                MessageBox.Show("Hiện chưa có vé nào được lưu. Hãy thanh toán vé trước!",
+                MessageBox.Show("Hiện chưa có vé nào. Hãy đặt vé trước!",
                                 "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
-        private void ảnhCácTuyếnToolStripMenuItem_Click(object sender, EventArgs e) => OpenChildForm(new FormAnhCacTuyen());
 
+        private void ảnhCácTuyếnToolStripMenuItem_Click(object sender, EventArgs e) => OpenChildForm(new FormAnhCacTuyen());
     }
 }

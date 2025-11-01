@@ -33,6 +33,8 @@ namespace MetroMap_HCM
             this.lblGia = new System.Windows.Forms.Label();
             this.txtGiave = new System.Windows.Forms.TextBox();
             this.btnDatVe = new System.Windows.Forms.Button();
+            this.lblGG = new System.Windows.Forms.Label();
+            this.cboGG = new System.Windows.Forms.ComboBox();
             this.grpChuyenDi.SuspendLayout();
             this.grpVe.SuspendLayout();
             this.SuspendLayout();
@@ -116,6 +118,8 @@ namespace MetroMap_HCM
             // 
             // grpVe
             // 
+            this.grpVe.Controls.Add(this.cboGG);
+            this.grpVe.Controls.Add(this.lblGG);
             this.grpVe.Controls.Add(this.lblLoai);
             this.grpVe.Controls.Add(this.cboLoai);
             this.grpVe.Controls.Add(this.lblGia);
@@ -155,7 +159,7 @@ namespace MetroMap_HCM
             this.txtGiave.Location = new System.Drawing.Point(90, 62);
             this.txtGiave.Name = "txtGiave";
             this.txtGiave.ReadOnly = true;
-            this.txtGiave.Size = new System.Drawing.Size(668, 22);
+            this.txtGiave.Size = new System.Drawing.Size(998, 22);
             this.txtGiave.TabIndex = 3;
             // 
             // btnDatVe
@@ -165,6 +169,21 @@ namespace MetroMap_HCM
             this.btnDatVe.Size = new System.Drawing.Size(100, 40);
             this.btnDatVe.TabIndex = 2;
             this.btnDatVe.Text = "Đặt vé";
+            // 
+            // lblGG
+            // 
+            this.lblGG.Location = new System.Drawing.Point(540, 31);
+            this.lblGG.Name = "lblGG";
+            this.lblGG.Size = new System.Drawing.Size(109, 20);
+            this.lblGG.TabIndex = 4;
+            this.lblGG.Text = "Giảm Giá:";
+            // 
+            // cboGG
+            // 
+            this.cboGG.Location = new System.Drawing.Point(655, 26);
+            this.cboGG.Name = "cboGG";
+            this.cboGG.Size = new System.Drawing.Size(253, 24);
+            this.cboGG.TabIndex = 5;
             // 
             // frmDatVe
             // 
@@ -200,5 +219,7 @@ namespace MetroMap_HCM
         private TextBox txtGiave;
 
         private Button btnDatVe;
+        private ComboBox cboGG;
+        private Label lblGG;
     }
 }

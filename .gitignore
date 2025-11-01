@@ -1,14 +1,14 @@
-.vs/bin/
+# Visual Studio temporary files
+.vs/
+*.user
+*.suo
+*.cache
+
+# Build output
+bin/
 obj/
 *.exe
 *.pdb
-*.cache
-*.user
-*.suo
-.vs/bin/
-obj/
-*.user
-*.suo
-*.pdb
-*.exe
-*.cache
+git rm -r --cached .
+git add .
+git commit -m "Update .gitignore and remove ignored files"

@@ -1,27 +1,19 @@
 ﻿using MetroMap_HCM;
-using QRCoder;
 using System;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace MeTroMap_HCM
 {
     public partial class frmThanhToan : Form
     {
-        private readonly string _maVe;
-        private readonly string _tuyenDi;
-        private readonly string _tuyenDen;
-        private readonly string _gaDi;
-        private readonly string _gaDen;
+        private readonly string _maVe, _tuyenDi, _tuyenDen, _gaDi, _gaDen, _loaiVe, _qrText;
         private readonly int _soLuong;
-        private readonly string _loaiVe;
         private readonly double _giaVe;
-        private readonly string _qrText;
         private int _thoiGianConLai = 300;
         private Timer timerDemNguoc;
 
-        public frmThanhToan(string maVe, string tuyenDi, string tuyenDen,
-            string gaDi, string gaDen, int soLuong, string loaiVe, double giaVe, string qrText)
+        public frmThanhToan(string maVe, string tuyenDi, string tuyenDen, string gaDi, string gaDen,
+                            int soLuong, string loaiVe, double giaVe, string qrText, DateTime ngayBatDau, DateTime ngayHetHan)
         {
             InitializeComponent();
             _maVe = maVe;
@@ -49,14 +41,13 @@ namespace MeTroMap_HCM
             try
             {
                 picQR.SizeMode = PictureBoxSizeMode.Zoom;
-                picQR.Load(_qrText); // _qrText là qrUrl từ frmDatVe
+                picQR.Load(_qrText);
             }
             catch
             {
                 MessageBox.Show("Không thể tạo QR.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            // Timer đếm ngược
             timerDemNguoc = new Timer();
             timerDemNguoc.Interval = 1000;
             timerDemNguoc.Tick += TimerDemNguoc_Tick;
@@ -82,23 +73,13 @@ namespace MeTroMap_HCM
         private void btnHoanTat_Click(object sender, EventArgs e)
         {
             timerDemNguoc.Stop();
-            MessageBox.Show("Thanh toán thành công! Cảm ơn bạn đã sử dụng MetroMap.",
-                            "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Thanh toán thành công! Cảm ơn bạn đã sử dụng MetroMap.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            // Lấy form chính (frmMain) đang mở
             var mainForm = Application.OpenForms["frmMain"] as frmMain;
-            if (mainForm != null)
-            {
-                // Gửi thông tin vé về form chính
-                mainForm.LuuThongTinVe(_maVe, _tuyenDi, _tuyenDen, _gaDi, _gaDen, _loaiVe, _giaVe);
-            }
+            mainForm?.LuuThongTinVe(_maVe, _tuyenDi, _tuyenDen, _gaDi, _gaDen, _loaiVe, _giaVe);
 
-            this.Close(); // Đóng form thanh toán
-        }
-
-        private void lblDemNguoc_Click(object sender, EventArgs e)
-        {
-
+            this.DialogResult = DialogResult.OK;
+            this.Close();
         }
     }
 }
