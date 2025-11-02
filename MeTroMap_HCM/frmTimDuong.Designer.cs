@@ -265,17 +265,17 @@
             // cboGaDen
             // 
             this.cboGaDen.FormattingEnabled = true;
-            this.cboGaDen.Location = new System.Drawing.Point(202, 199);
+            this.cboGaDen.Location = new System.Drawing.Point(176, 199);
             this.cboGaDen.Name = "cboGaDen";
-            this.cboGaDen.Size = new System.Drawing.Size(226, 34);
+            this.cboGaDen.Size = new System.Drawing.Size(282, 34);
             this.cboGaDen.TabIndex = 15;
             // 
             // cboTuyenDen
             // 
             this.cboTuyenDen.FormattingEnabled = true;
-            this.cboTuyenDen.Location = new System.Drawing.Point(202, 139);
+            this.cboTuyenDen.Location = new System.Drawing.Point(176, 138);
             this.cboTuyenDen.Name = "cboTuyenDen";
-            this.cboTuyenDen.Size = new System.Drawing.Size(226, 34);
+            this.cboTuyenDen.Size = new System.Drawing.Size(282, 34);
             this.cboTuyenDen.TabIndex = 14;
             // 
             // label2
