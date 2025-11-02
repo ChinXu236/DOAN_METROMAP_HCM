@@ -73,6 +73,7 @@ namespace MetroMap_HCM
             {
                 string maGa = txtMaGa.Text.Trim();
                 string tenGa = txtTenGa.Text.Trim();
+<<<<<<< HEAD
                 string maTuyen = cboTuyen.SelectedValue.ToString();
                 int? thuTu = int.TryParse(txtThuTu.Text, out int tt) ? tt : (int?)null;
 
@@ -99,6 +100,41 @@ namespace MetroMap_HCM
                 }
 
                 var gaMoi = new Ga
+=======
+                string maTuyen = cboTuyen.SelectedValue?.ToString();
+                string thuTuText = txtThuTu.Text.Trim();
+
+                
+                if (string.IsNullOrEmpty(maGa) ||
+                    string.IsNullOrEmpty(tenGa) ||
+                    string.IsNullOrEmpty(maTuyen) ||
+                    string.IsNullOrEmpty(thuTuText))
+                {
+                    MessageBox.Show("Vui lòng nhập đầy đủ Mã ga, Tên ga, Tuyến và Thứ tự!",
+                                    "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                
+                if (!int.TryParse(thuTuText, out int thuTu))
+                {
+                    MessageBox.Show("Thứ tự phải là số nguyên!",
+                                    "Dữ liệu không hợp lệ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                
+                var danhSachGa = _gaService.GetAll();
+                if (danhSachGa.Any(x => x.MaGa.Equals(maGa, StringComparison.OrdinalIgnoreCase)))
+                {
+                    MessageBox.Show("Mã ga đã tồn tại! Vui lòng nhập mã khác.",
+                                    "Trùng mã ga", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                
+                Ga ga = new Ga
+>>>>>>> c27a5c22ebd170b5498a2a51fb71a22309757a27
                 {
                     MaGa = maGa,
                     TenGa = tenGa,
@@ -106,7 +142,11 @@ namespace MetroMap_HCM
                     ThuTu = thuTu
                 };
 
+<<<<<<< HEAD
                 _gaService.Add(gaMoi);
+=======
+                _gaService.Add(ga);
+>>>>>>> c27a5c22ebd170b5498a2a51fb71a22309757a27
                 LoadDanhSachGa();
                 MessageBox.Show("Thêm ga thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 ClearInput();
