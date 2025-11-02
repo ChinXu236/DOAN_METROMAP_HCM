@@ -36,6 +36,7 @@
             // 
             // dgvLienKet
             // 
+            this.dgvLienKet.AllowUserToAddRows = false;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(246)))), ((int)(((byte)(249)))), ((int)(((byte)(255)))));
             this.dgvLienKet.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvLienKet.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
@@ -63,6 +64,7 @@
             this.dgvLienKet.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(225)))), ((int)(((byte)(232)))), ((int)(((byte)(245)))));
             this.dgvLienKet.Location = new System.Drawing.Point(215, 315);
             this.dgvLienKet.Name = "dgvLienKet";
+            this.dgvLienKet.ReadOnly = true;
             this.dgvLienKet.RowHeadersVisible = false;
             this.dgvLienKet.RowHeadersWidth = 51;
             this.dgvLienKet.RowTemplate.Height = 40;
