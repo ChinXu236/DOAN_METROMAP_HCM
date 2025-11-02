@@ -21,19 +21,19 @@ namespace MetroMap_HCM
             LoadTuyenCombo();
             LoadDanhSachGa();
 
+            // Căn giữa DataGridView
             Control parent = dgvGa.Parent;
             void Center() => dgvGa.Left = (parent.ClientSize.Width - dgvGa.Width) / 2;
-
             this.Resize += (s, ev) => Center();
             parent.Resize += (s, ev) => Center();
             Center();
-            dgvGa.Anchor = AnchorStyles.Top; // không kéo dãn theo chiều ngang
+            dgvGa.Anchor = AnchorStyles.Top;
         }
 
         private void LoadTuyenCombo()
         {
-            var tuyens = _tuyenService.GetAll();
-            cboTuyen.DataSource = tuyens;
+            var dsTuyen = _tuyenService.GetAll();
+            cboTuyen.DataSource = dsTuyen;
             cboTuyen.DisplayMember = "TenTuyen";
             cboTuyen.ValueMember = "MaTuyen";
         }
@@ -41,14 +41,15 @@ namespace MetroMap_HCM
         private void LoadDanhSachGa()
         {
             dgvGa.DataSource = _gaService.GetAll()
-                .Select(g => new
+                .Select(item => new
                 {
-                    g.MaGa,
-                    g.TenGa,
-                    g.MaTuyen,
-                    TenTuyen = g.Tuyen.TenTuyen,
-                    g.ThuTu
-                }).ToList();
+                    item.MaGa,
+                    item.TenGa,
+                    item.MaTuyen,
+                    TenTuyen = item.Tuyen.TenTuyen,
+                    item.ThuTu
+                })
+                .ToList();
         }
 
         private void dgvGa_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -63,91 +64,153 @@ namespace MetroMap_HCM
             }
         }
 
+        // =========================
+        // ===== THÊM GA MỚI ======
+        // =========================
         private void btnThem_Click(object sender, EventArgs e)
         {
             try
             {
-                var g = new Ga
+                string maGa = txtMaGa.Text.Trim();
+                string tenGa = txtTenGa.Text.Trim();
+                string maTuyen = cboTuyen.SelectedValue.ToString();
+                int? thuTu = int.TryParse(txtThuTu.Text, out int tt) ? tt : (int?)null;
+
+                if (string.IsNullOrWhiteSpace(maGa) || string.IsNullOrWhiteSpace(tenGa) || thuTu == null)
                 {
-                    MaGa = txtMaGa.Text.Trim(),
-                    TenGa = txtTenGa.Text.Trim(),
-                    MaTuyen = cboTuyen.SelectedValue.ToString(),
-                    ThuTu = int.TryParse(txtThuTu.Text, out int tt) ? tt : (int?)null
+                    MessageBox.Show("Vui lòng nhập đầy đủ Mã ga, Tên ga và Thứ tự!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Kiểm tra trùng mã ga
+                bool trungMa = _gaService.GetAll().Any(ga => ga.MaGa.Equals(maGa, StringComparison.OrdinalIgnoreCase));
+                if (trungMa)
+                {
+                    MessageBox.Show("Mã ga đã tồn tại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                // Kiểm tra trùng thứ tự trong cùng tuyến
+                bool trungThuTu = _gaService.GetAll().Any(ga => ga.MaTuyen == maTuyen && ga.ThuTu == thuTu);
+                if (trungThuTu)
+                {
+                    MessageBox.Show("Thứ tự ga này đã tồn tại trong tuyến! Vui lòng chọn thứ tự khác.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                var gaMoi = new Ga
+                {
+                    MaGa = maGa,
+                    TenGa = tenGa,
+                    MaTuyen = maTuyen,
+                    ThuTu = thuTu
                 };
 
-                _gaService.Add(g);
+                _gaService.Add(gaMoi);
                 LoadDanhSachGa();
-                MessageBox.Show("Thêm ga thành công!");
+                MessageBox.Show("Thêm ga thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 ClearInput();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi: {ex.Message}");
+                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi hệ thống", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
+        // =========================
+        // ===== SỬA GA ============
+        // =========================
         private void btnSua_Click(object sender, EventArgs e)
         {
             try
             {
-                var g = new Ga
+                string maGa = txtMaGa.Text.Trim();
+                string tenGa = txtTenGa.Text.Trim();
+                string maTuyen = cboTuyen.SelectedValue.ToString();
+                int? thuTu = int.TryParse(txtThuTu.Text, out int tt) ? tt : (int?)null;
+
+                if (string.IsNullOrWhiteSpace(maGa) || string.IsNullOrWhiteSpace(tenGa) || thuTu == null)
                 {
-                    MaGa = txtMaGa.Text.Trim(),
-                    TenGa = txtTenGa.Text.Trim(),
-                    MaTuyen = cboTuyen.SelectedValue.ToString(),
-                    ThuTu = int.TryParse(txtThuTu.Text, out int tt) ? tt : (int?)null
+                    MessageBox.Show("Vui lòng nhập đầy đủ Mã ga, Tên ga và Thứ tự!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Kiểm tra trùng thứ tự trong cùng tuyến (ngoại trừ chính nó)
+                bool trungThuTu = _gaService.GetAll().Any(ga => ga.MaTuyen == maTuyen && ga.ThuTu == thuTu && !ga.MaGa.Equals(maGa, StringComparison.OrdinalIgnoreCase));
+                if (trungThuTu)
+                {
+                    MessageBox.Show("Thứ tự này đã tồn tại trong tuyến! Không thể cập nhật.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                var gaCanSua = new Ga
+                {
+                    MaGa = maGa,
+                    TenGa = tenGa,
+                    MaTuyen = maTuyen,
+                    ThuTu = thuTu
                 };
 
-                _gaService.Update(g);
+                _gaService.Update(gaCanSua);
                 LoadDanhSachGa();
-                MessageBox.Show("Sửa thông tin ga thành công!");
+                MessageBox.Show("Cập nhật thông tin ga thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi: {ex.Message}");
+                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi hệ thống", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
+        // =========================
+        // ===== XÓA GA ============
+        // =========================
         private void btnXoa_Click(object sender, EventArgs e)
         {
             string maGa = txtMaGa.Text.Trim();
-            string tenGa = txtTenGa.Text.Trim();
 
-            if (string.IsNullOrEmpty(maGa) && string.IsNullOrEmpty(tenGa))
+            if (string.IsNullOrEmpty(maGa))
             {
-                MessageBox.Show("Vui lòng nhập mã ga hoặc tên ga cần xóa!");
+                MessageBox.Show("Vui lòng chọn ga cần xóa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            try
+            var confirm = MessageBox.Show("Bạn có chắc muốn xóa ga này?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (confirm == DialogResult.Yes)
             {
-                _gaService.Delete(maGa, tenGa);
-                MessageBox.Show("Xóa thành công!");
-                LoadDanhSachGa();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
+                try
+                {
+                    _gaService.Delete(maGa);
+                    LoadDanhSachGa();
+                    ClearInput();
+                    MessageBox.Show("Xóa ga thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Lỗi khi xóa: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
+        // =========================
+        // ===== TÌM KIẾM ==========
+        // =========================
         private void btnTim_Click(object sender, EventArgs e)
         {
             string tuKhoa = txtTim.Text.Trim().ToLower();
-            var result = _gaService.GetAll()
-                .Where(g => g.TenGa.ToLower().Contains(tuKhoa) ||
-                            g.MaGa.ToLower().Contains(tuKhoa))
-                .Select(g => new
+            var ketQua = _gaService.GetAll()
+                .Where(ga => ga.TenGa.ToLower().Contains(tuKhoa) ||
+                             ga.MaGa.ToLower().Contains(tuKhoa))
+                .Select(ga => new
                 {
-                    g.MaGa,
-                    g.TenGa,
-                    g.MaTuyen,
-                    TenTuyen = g.Tuyen.TenTuyen,
-                    g.ThuTu
+                    ga.MaGa,
+                    ga.TenGa,
+                    ga.MaTuyen,
+                    TenTuyen = ga.Tuyen.TenTuyen,
+                    ga.ThuTu
                 })
                 .ToList();
 
-            dgvGa.DataSource = result;
+            dgvGa.DataSource = ketQua;
         }
 
         private void btnTaiLai_Click(object sender, EventArgs e)

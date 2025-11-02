@@ -118,6 +118,7 @@
             this.picAvatar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picAvatar.TabIndex = 14;
             this.picAvatar.TabStop = false;
+            this.picAvatar.Click += new System.EventHandler(this.picAvatar_Click);
             // 
             // pnlRowEmail
             // 
@@ -264,6 +265,7 @@
             this.btnCapNhat.Size = new System.Drawing.Size(117, 46);
             this.btnCapNhat.TabIndex = 9;
             this.btnCapNhat.Text = "Cập nhật";
+            this.btnCapNhat.Click += new System.EventHandler(this.btnCapNhat_Click);
             // 
             // lblEmail
             // 
