@@ -27,6 +27,8 @@
             this.lblNN = new System.Windows.Forms.Label();
             this.txtNN = new System.Windows.Forms.TextBox();
             this.pnlCard = new System.Windows.Forms.Panel();
+            this.pnlRowNN = new System.Windows.Forms.Panel();
+            this.pnlInputNN = new System.Windows.Forms.Panel();
             this.pnlRowDiaChi = new System.Windows.Forms.Panel();
             this.pnlInputDiaChi = new System.Windows.Forms.Panel();
             this.pnlRowSDT = new System.Windows.Forms.Panel();
@@ -37,9 +39,9 @@
             this.pnlInputEmail = new System.Windows.Forms.Panel();
             this.lblAvatarHint = new System.Windows.Forms.Label();
             this.picAvatar = new System.Windows.Forms.PictureBox();
-            this.pnlRowNN = new System.Windows.Forms.Panel();
-            this.pnlInputNN = new System.Windows.Forms.Panel();
             this.pnlCard.SuspendLayout();
+            this.pnlRowNN.SuspendLayout();
+            this.pnlInputNN.SuspendLayout();
             this.pnlRowDiaChi.SuspendLayout();
             this.pnlInputDiaChi.SuspendLayout();
             this.pnlRowSDT.SuspendLayout();
@@ -49,8 +51,6 @@
             this.pnlRowEmail.SuspendLayout();
             this.pnlInputEmail.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picAvatar)).BeginInit();
-            this.pnlRowNN.SuspendLayout();
-            this.pnlInputNN.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblHoTen
@@ -180,11 +180,32 @@
             this.pnlCard.Controls.Add(this.lblDiaChi);
             this.pnlCard.Controls.Add(this.lblSDT);
             this.pnlCard.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pnlCard.Location = new System.Drawing.Point(235, 114);
+            this.pnlCard.Location = new System.Drawing.Point(285, 96);
             this.pnlCard.Name = "pnlCard";
             this.pnlCard.Padding = new System.Windows.Forms.Padding(16);
             this.pnlCard.Size = new System.Drawing.Size(1018, 493);
             this.pnlCard.TabIndex = 12;
+            // 
+            // pnlRowNN
+            // 
+            this.pnlRowNN.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(147)))), ((int)(((byte)(197)))), ((int)(((byte)(253)))));
+            this.pnlRowNN.Controls.Add(this.pnlInputNN);
+            this.pnlRowNN.Location = new System.Drawing.Point(557, 251);
+            this.pnlRowNN.Name = "pnlRowNN";
+            this.pnlRowNN.Padding = new System.Windows.Forms.Padding(2);
+            this.pnlRowNN.Size = new System.Drawing.Size(360, 40);
+            this.pnlRowNN.TabIndex = 18;
+            // 
+            // pnlInputNN
+            // 
+            this.pnlInputNN.BackColor = System.Drawing.Color.White;
+            this.pnlInputNN.Controls.Add(this.txtNN);
+            this.pnlInputNN.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlInputNN.Location = new System.Drawing.Point(2, 2);
+            this.pnlInputNN.Name = "pnlInputNN";
+            this.pnlInputNN.Padding = new System.Windows.Forms.Padding(8, 6, 8, 6);
+            this.pnlInputNN.Size = new System.Drawing.Size(356, 36);
+            this.pnlInputNN.TabIndex = 0;
             // 
             // pnlRowDiaChi
             // 
@@ -294,27 +315,6 @@
             this.picAvatar.TabStop = false;
             this.picAvatar.Click += new System.EventHandler(this.picAvatar_Click);
             // 
-            // pnlRowNN
-            // 
-            this.pnlRowNN.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(147)))), ((int)(((byte)(197)))), ((int)(((byte)(253)))));
-            this.pnlRowNN.Controls.Add(this.pnlInputNN);
-            this.pnlRowNN.Location = new System.Drawing.Point(557, 251);
-            this.pnlRowNN.Name = "pnlRowNN";
-            this.pnlRowNN.Padding = new System.Windows.Forms.Padding(2);
-            this.pnlRowNN.Size = new System.Drawing.Size(360, 40);
-            this.pnlRowNN.TabIndex = 18;
-            // 
-            // pnlInputNN
-            // 
-            this.pnlInputNN.BackColor = System.Drawing.Color.White;
-            this.pnlInputNN.Controls.Add(this.txtNN);
-            this.pnlInputNN.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlInputNN.Location = new System.Drawing.Point(2, 2);
-            this.pnlInputNN.Name = "pnlInputNN";
-            this.pnlInputNN.Padding = new System.Windows.Forms.Padding(8, 6, 8, 6);
-            this.pnlInputNN.Size = new System.Drawing.Size(356, 36);
-            this.pnlInputNN.TabIndex = 0;
-            // 
             // frmTaiKhoanNguoiDung
             // 
             this.AcceptButton = this.btnCapNhat;
@@ -327,6 +327,9 @@
             this.Load += new System.EventHandler(this.frmTaiKhoanNguoiDung_Load);
             this.pnlCard.ResumeLayout(false);
             this.pnlCard.PerformLayout();
+            this.pnlRowNN.ResumeLayout(false);
+            this.pnlInputNN.ResumeLayout(false);
+            this.pnlInputNN.PerformLayout();
             this.pnlRowDiaChi.ResumeLayout(false);
             this.pnlInputDiaChi.ResumeLayout(false);
             this.pnlInputDiaChi.PerformLayout();
@@ -340,9 +343,6 @@
             this.pnlInputEmail.ResumeLayout(false);
             this.pnlInputEmail.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picAvatar)).EndInit();
-            this.pnlRowNN.ResumeLayout(false);
-            this.pnlInputNN.ResumeLayout(false);
-            this.pnlInputNN.PerformLayout();
             this.ResumeLayout(false);
 
         }
