@@ -39,26 +39,80 @@ namespace MetroMap_HCM
             dgvLienKet.DataSource = _lienKetService.GetAll();
         }
 
+
         private void btnThem_Click(object sender, EventArgs e)
         {
-            var lk = new LienKet
+            try
             {
-                MaGa1 = cboGa1.SelectedValue.ToString(),
-                MaGa2 = cboGa2.SelectedValue.ToString(),
-                KhoangCach = double.Parse(txtKhoangCach.Text)
-            };
-            _lienKetService.Add(lk);
+                if (cboGa1.SelectedValue.ToString() == cboGa2.SelectedValue.ToString())
+                {
+                    MessageBox.Show("Không thể liên kết cùng một ga!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
-            LoadLienKetGrid();
+                if (!double.TryParse(txtKhoangCach.Text, out double kc))
+                {
+                    MessageBox.Show("Vui lòng nhập khoảng cách hợp lệ!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                var lk = new LienKet
+                {
+                    MaGa1 = cboGa1.SelectedValue.ToString(),
+                    MaGa2 = cboGa2.SelectedValue.ToString(),
+                    KhoangCach = kc
+                };
+
+                _lienKetService.Add(lk);
+                LoadLienKetGrid();
+                MessageBox.Show("Thêm liên kết thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi thêm liên kết: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnXoa_Click(object sender, EventArgs e)
         {
-            if (dgvLienKet.CurrentRow != null)
+            if (dgvLienKet.CurrentRow == null)
             {
-                int id = (int)dgvLienKet.CurrentRow.Cells["ID"].Value;
-                _lienKetService.Delete(id);
-                LoadLienKetGrid();
+                MessageBox.Show("Vui lòng chọn liên kết cần xóa!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            int id = (int)dgvLienKet.CurrentRow.Cells["ID"].Value;
+            var confirm = MessageBox.Show("Bạn có chắc chắn muốn xóa liên kết này?",
+                "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (confirm == DialogResult.Yes)
+            {
+                try
+                {
+                    _lienKetService.Delete(id);
+                    LoadLienKetGrid();
+                    MessageBox.Show("Xóa liên kết thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Lỗi khi xóa liên kết: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        // ✅ Thêm sự kiện CellClick
+        private void dgvLienKet_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && dgvLienKet.Rows[e.RowIndex].Cells["ID"].Value != null)
+            {
+                var row = dgvLienKet.Rows[e.RowIndex];
+
+                // Gán lại combobox theo mã ga
+                cboGa1.SelectedValue = row.Cells["MaGa1"].Value.ToString();
+                cboGa2.SelectedValue = row.Cells["MaGa2"].Value.ToString();
+
+                // Hiển thị khoảng cách
+                txtKhoangCach.Text = row.Cells["KhoangCach"].Value?.ToString();
             }
         }
     }

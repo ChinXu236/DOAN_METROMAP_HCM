@@ -30,10 +30,6 @@
             this.btnTim = new System.Windows.Forms.Button();
             this.btnTaiLai = new System.Windows.Forms.Button();
             this.dgvGa = new System.Windows.Forms.DataGridView();
-            this.colSTT = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colMaGa = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colTenGa = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colTuyen = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnlCard = new System.Windows.Forms.Panel();
             this.txtTimKiem = new System.Windows.Forms.Label();
             this.pWrapTim = new System.Windows.Forms.Panel();
@@ -47,6 +43,10 @@
             this.txtTenGa = new System.Windows.Forms.TextBox();
             this.pWrapMa = new System.Windows.Forms.Panel();
             this.pInnerMa = new System.Windows.Forms.Panel();
+            this.STT = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MaGa = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TenGa = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Tuyen = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvGa)).BeginInit();
             this.pnlCard.SuspendLayout();
             this.pWrapTim.SuspendLayout();
@@ -89,7 +89,7 @@
             this.lblTuyen.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblTuyen.Location = new System.Drawing.Point(549, 31);
             this.lblTuyen.Name = "lblTuyen";
-            this.lblTuyen.Size = new System.Drawing.Size(77, 26);
+            this.lblTuyen.Size = new System.Drawing.Size(76, 26);
             this.lblTuyen.TabIndex = 3;
             this.lblTuyen.Text = "Tuyến:";
             // 
@@ -242,10 +242,10 @@
             this.dgvGa.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvGa.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvGa.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.colSTT,
-            this.colMaGa,
-            this.colTenGa,
-            this.colTuyen});
+            this.STT,
+            this.MaGa,
+            this.TenGa,
+            this.Tuyen});
             this.dgvGa.Location = new System.Drawing.Point(176, 247);
             this.dgvGa.Name = "dgvGa";
             this.dgvGa.ReadOnly = true;
@@ -256,39 +256,6 @@
             this.dgvGa.Size = new System.Drawing.Size(1209, 292);
             this.dgvGa.TabIndex = 0;
             this.dgvGa.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvGa_CellClick);
-            // 
-            // colSTT
-            // 
-            this.colSTT.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.colSTT.HeaderText = "STT";
-            this.colSTT.MinimumWidth = 6;
-            this.colSTT.Name = "colSTT";
-            this.colSTT.ReadOnly = true;
-            this.colSTT.Width = 84;
-            // 
-            // colMaGa
-            // 
-            this.colMaGa.DataPropertyName = "MaGa";
-            this.colMaGa.HeaderText = "Mã ga";
-            this.colMaGa.MinimumWidth = 6;
-            this.colMaGa.Name = "colMaGa";
-            this.colMaGa.ReadOnly = true;
-            // 
-            // colTenGa
-            // 
-            this.colTenGa.DataPropertyName = "TenGa";
-            this.colTenGa.HeaderText = "Tên ga";
-            this.colTenGa.MinimumWidth = 6;
-            this.colTenGa.Name = "colTenGa";
-            this.colTenGa.ReadOnly = true;
-            // 
-            // colTuyen
-            // 
-            this.colTuyen.DataPropertyName = "TenTuyen";
-            this.colTuyen.HeaderText = "Tuyến";
-            this.colTuyen.MinimumWidth = 6;
-            this.colTuyen.Name = "colTuyen";
-            this.colTuyen.ReadOnly = true;
             // 
             // pnlCard
             // 
@@ -446,6 +413,39 @@
             this.pInnerMa.Size = new System.Drawing.Size(356, 36);
             this.pInnerMa.TabIndex = 0;
             // 
+            // STT
+            // 
+            this.STT.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.STT.HeaderText = "STT";
+            this.STT.MinimumWidth = 6;
+            this.STT.Name = "STT";
+            this.STT.ReadOnly = true;
+            this.STT.Width = 84;
+            // 
+            // MaGa
+            // 
+            this.MaGa.DataPropertyName = "MaGa";
+            this.MaGa.HeaderText = "Mã ga";
+            this.MaGa.MinimumWidth = 6;
+            this.MaGa.Name = "MaGa";
+            this.MaGa.ReadOnly = true;
+            // 
+            // TenGa
+            // 
+            this.TenGa.DataPropertyName = "TenGa";
+            this.TenGa.HeaderText = "Tên ga";
+            this.TenGa.MinimumWidth = 6;
+            this.TenGa.Name = "TenGa";
+            this.TenGa.ReadOnly = true;
+            // 
+            // Tuyen
+            // 
+            this.Tuyen.DataPropertyName = "TenTuyen";
+            this.Tuyen.HeaderText = "Tuyến";
+            this.Tuyen.MinimumWidth = 6;
+            this.Tuyen.Name = "Tuyen";
+            this.Tuyen.ReadOnly = true;
+            // 
             // frmGa
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -508,9 +508,9 @@
         private System.Windows.Forms.Panel pWrapTim;
         private System.Windows.Forms.Panel pInnerTim;
         private System.Windows.Forms.Label txtTimKiem;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colSTT;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colMaGa;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colTenGa;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colTuyen;
+        private System.Windows.Forms.DataGridViewTextBoxColumn STT;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MaGa;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TenGa;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Tuyen;
     }
 }

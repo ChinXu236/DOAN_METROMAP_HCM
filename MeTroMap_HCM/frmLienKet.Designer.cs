@@ -69,6 +69,7 @@
             this.dgvLienKet.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvLienKet.Size = new System.Drawing.Size(1117, 366);
             this.dgvLienKet.TabIndex = 0;
+            this.dgvLienKet.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvLienKet_CellClick);
             // 
             // cboGa1
             // 
