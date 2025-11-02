@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Data.SqlClient;
 using System.Diagnostics;
 
 namespace MetroMap_HCM.DAL
@@ -12,15 +11,15 @@ namespace MetroMap_HCM.DAL
         public string GaDen { get; set; }
         public string MaTuyen { get; set; }
         public double KhoangCach { get; set; }
-        public TimeSpan? GioXuatPhat { get; set; } // giờ xuất phát của đoạn
-        public TimeSpan? GioDen { get; set; }      // giờ đến của đoạn
+        public TimeSpan? GioXuatPhat { get; set; }
+        public TimeSpan? GioDen { get; set; }
         public bool DoiTuyen { get; set; }
-        public int ThoiGianDenTiepTheo { get; set; } // phút đi đoạn tiếp theo (3 phút)
+        public int ThoiGianDenTiepTheo { get; set; }
     }
 
     public static class Dijkstra
     {
-        // Xây dựng đồ thị
+        // Xây dựng đồ thị từ Entity Framework
         private static Dictionary<string, List<Tuple<string, double>>> XayDungDoThi()
         {
             var graph = new Dictionary<string, List<Tuple<string, double>>>();
@@ -29,7 +28,9 @@ namespace MetroMap_HCM.DAL
             {
                 using (var db = new Model1())
                 {
-                    foreach (var lk in db.LienKets.ToList())
+                    var lienKets = db.LienKets.ToList();
+
+                    foreach (var lk in lienKets)
                     {
                         string g1 = lk.MaGa1;
                         string g2 = lk.MaGa2;
@@ -43,11 +44,9 @@ namespace MetroMap_HCM.DAL
                     }
                 }
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
-                // Avoid showing UI from DAL; write to trace for logging instead
-                Trace.TraceError("Không thể kết nối tới SQL Server: {0}\n{1}", ex.Message,
-                    "Kiểm tra chuỗi kết nối trong App.config (Model11) — nếu SQL nằm trên máy khác, dùng IP hoặc tên máy và cổng, ví dụ: Data Source=192.168.1.100\\SQLEXPRESS,1433;... Hoặc bật TCP/IP và SQL Browser trên server.");
+                Trace.TraceError("Lỗi khi tải dữ liệu từ Entity Framework: {0}", ex.Message);
             }
 
             return graph;
@@ -82,6 +81,7 @@ namespace MetroMap_HCM.DAL
                     {
                         string u = null;
                         double minKC = double.PositiveInfinity;
+
                         foreach (var n in Q)
                         {
                             if (kc[n] < minKC)
@@ -99,7 +99,7 @@ namespace MetroMap_HCM.DAL
                         foreach (var vTuple in graph[u])
                         {
                             string v = vTuple.Item1;
-                            double alt = kc[u] + 1; // 1 đoạn = 1 trọng số (không dùng km)
+                            double alt = kc[u] + 1;
                             if (alt < kc[v])
                             {
                                 kc[v] = alt;
@@ -123,7 +123,7 @@ namespace MetroMap_HCM.DAL
                     // Chi tiết từng đoạn
                     var ketQua = new List<DoanDuong>();
 
-                    // Lấy giờ xuất phát đầu tiên từ LichTrinh
+                    // Lấy giờ xuất phát đầu tiên
                     var lichDau = db.LichTrinhs
                         .Where(l => l.MaGa == gaStart)
                         .OrderBy(l => l.GioXuatPhat)
@@ -147,7 +147,7 @@ namespace MetroMap_HCM.DAL
                         string maTuyen = doiTuyen ? g2.MaTuyen + " (Đổi tuyến)" : g1.MaTuyen;
 
                         TimeSpan gioDi = gioHienTai;
-                        TimeSpan gioDen = gioDi.Add(TimeSpan.FromMinutes(3)); // mỗi đoạn 3 phút
+                        TimeSpan gioDen = gioDi.Add(TimeSpan.FromMinutes(3));
 
                         ketQua.Add(new DoanDuong
                         {
@@ -161,21 +161,20 @@ namespace MetroMap_HCM.DAL
                             ThoiGianDenTiepTheo = 3
                         });
 
-                        // Cập nhật giờ cho đoạn tiếp theo
                         gioHienTai = gioDen;
                     }
 
                     return ketQua;
                 }
             }
-            catch (SqlException ex)
+            catch (Exception ex)
             {
-                Trace.TraceError("Lỗi khi kết nối tới cơ sở dữ liệu: {0}", ex.Message);
+                Trace.TraceError("Lỗi khi truy vấn với Entity Framework: {0}", ex.Message);
                 return null;
             }
         }
 
-    // ======================= BỔ SUNG CHO DỊCH VỤ GỌI =======================
+        // ======================= HÀM PHỤ =======================
         public static double TinhKhoangCach(string maGa1, string maGa2)
         {
             using (var db = new Model1())
@@ -192,12 +191,11 @@ namespace MetroMap_HCM.DAL
         {
             var duongChiTiet = TimDuongChiTiet(maGaStart, maGaEnd);
             if (duongChiTiet == null) return new List<string>();
-            // chỉ trả danh sách mã ga, để lớp BUS hiển thị theo nhu cầu
+
             return duongChiTiet
                 .SelectMany(dd => new[] { dd.GaDi, dd.GaDen })
                 .Distinct()
                 .ToList();
         }
     }
-
 }
