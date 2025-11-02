@@ -77,19 +77,21 @@ namespace MetroMap_HCM
             string sdt = txtSDT.Text.Trim();
             string avatarPath = picAvatar.Tag?.ToString();
 
-            // Kiểm tra hợp lệ
             if (string.IsNullOrWhiteSpace(tenNV) || string.IsNullOrWhiteSpace(email))
             {
                 MessageBox.Show("Vui lòng nhập đầy đủ tên và email!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            // Giả lập lưu file (nếu bạn chưa có DB)
-            string infoPath = Path.Combine(Application.StartupPath, "Resources", "nhanvien_info.txt");
+            // Đảm bảo thư mục Resources tồn tại
+            string resourcesDir = Path.Combine(Application.StartupPath, "Resources");
+            if (!Directory.Exists(resourcesDir))
+                Directory.CreateDirectory(resourcesDir);
+
+            string infoPath = Path.Combine(resourcesDir, "nhanvien_info.txt");
             File.WriteAllText(infoPath, $"{maNV}|{tenNV}|{chucVu}|{email}|{sdt}|{avatarPath}");
 
             MessageBox.Show("Cập nhật thông tin nhân viên thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
-    
     }
 }

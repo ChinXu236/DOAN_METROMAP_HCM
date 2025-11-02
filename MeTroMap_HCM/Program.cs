@@ -11,10 +11,21 @@ namespace MetroMap_HCM
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            frmLogin login = new frmLogin();
-            if (login.ShowDialog() == DialogResult.OK)
+            while (true)
             {
-                Application.Run(new frmMain(login.UserRole));
+                frmLogin loginForm = new frmLogin();
+                if (loginForm.ShowDialog() == DialogResult.OK)
+                {
+                    frmMain mainForm = new frmMain(loginForm.UserRole);
+                    Application.Run(mainForm);
+
+                    if (!mainForm.IsLogout)
+                        break;  
+                }
+                else
+                {
+                    break; 
+                }
             }
         }
     }

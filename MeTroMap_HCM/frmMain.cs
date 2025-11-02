@@ -2,8 +2,6 @@
 using MeTroMap_HCM;
 using System;
 using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Text;
 using System.Windows.Forms;
 
 namespace MetroMap_HCM
@@ -11,6 +9,15 @@ namespace MetroMap_HCM
     public partial class frmMain : Form
     {
         private readonly string _userRole;
+
+        // 🟢 Dùng để xác định người dùng đăng xuất hay thoát hẳn
+        public bool IsLogout { get; private set; }
+
+        // Các biến lưu thông tin vé
+        private string _maVe, _tuyenDi, _tuyenDen, _gaDi, _gaDen, _loaiVe;
+        private double _giaVe;
+        private bool _hasTicket = false;
+        private DateTime _ngayBatDau, _ngayHetHan;
 
         public frmMain(string userRole)
         {
@@ -24,9 +31,12 @@ namespace MetroMap_HCM
             ConfigureForRole(_userRole);
         }
 
+        // ============================
+        // PHÂN QUYỀN HIỂN THỊ MENU
+        // ============================
         private void ConfigureForRole(string role)
         {
-            // Ẩn hết
+            // Ẩn hết trước
             mniQuanLy.Visible = false;
             mniGa.Visible = false;
             mniTuyen.Visible = false;
@@ -58,6 +68,9 @@ namespace MetroMap_HCM
             }
         }
 
+        // ============================
+        // MỞ FORM CON TRONG PANEL
+        // ============================
         private void OpenChildForm(Form childForm)
         {
             pnlMain.Controls.Clear();
@@ -67,6 +80,9 @@ namespace MetroMap_HCM
             childForm.Show();
         }
 
+        // ============================
+        // CÁC SỰ KIỆN MỞ FORM CON
+        // ============================
         private void mniGa_Click(object sender, EventArgs e) => OpenChildForm(new frmGa());
         private void mniTuyen_Click(object sender, EventArgs e) => OpenChildForm(new frmTuyen());
         private void mniLienKet_Click(object sender, EventArgs e) => OpenChildForm(new frmLienKet());
@@ -75,28 +91,38 @@ namespace MetroMap_HCM
         private void mniDatVe_Click(object sender, EventArgs e) => OpenChildForm(new frmDatVe());
         private void mniTaiKhoanNguoiDung_Click(object sender, EventArgs e) => OpenChildForm(new frmTaiKhoanNguoiDung());
         private void mniTaiKhoanNhanVien_Click(object sender, EventArgs e) => OpenChildForm(new frmTaiKhoanNhanVien());
+        private void ảnhCácTuyếnToolStripMenuItem_Click(object sender, EventArgs e) => OpenChildForm(new FormAnhCacTuyen());
 
+        // ============================
+        // XỬ LÝ ĐĂNG XUẤT
+        // ============================
         private void mniDangXuat_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Bạn có chắc muốn đăng xuất?", "Xác nhận", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            var confirm = MessageBox.Show("Bạn có chắc muốn đăng xuất?",
+                                          "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (confirm == DialogResult.Yes)
             {
-                Hide();
-                frmLogin login = new frmLogin();
-                if (login.ShowDialog() == DialogResult.OK)
-                {
-                    frmMain main = new frmMain(login.UserRole);
-                    main.Show();
-                }
-                Close();
+                // ✅ Gắn cờ đăng xuất
+                IsLogout = true;
+
+                // ✅ Đóng form chính để Program.cs biết quay lại frmLogin
+                this.Close();
             }
         }
 
-        private string _maVe, _tuyenDi, _tuyenDen, _gaDi, _gaDen, _loaiVe;
-        private double _giaVe;
-        private bool _hasTicket = false;
-        private DateTime _ngayBatDau, _ngayHetHan;
+        // ✅ Khi form bị đóng
+        private void frmMain_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            // Nếu người dùng thoát hẳn chương trình (Alt+F4, nút X)
+            if (!IsLogout)
+            {
+                Application.Exit();
+            }
+        }
 
-        // Hàm nhận dữ liệu từ frmThanhToan
+        // ============================
+        // LƯU THÔNG TIN VÉ
+        // ============================
         public void LuuThongTinVe(string maVe, string tuyenDi, string tuyenDen,
                    string gaDi, string gaDen, string loaiVe, double giaVe)
         {
@@ -135,7 +161,9 @@ namespace MetroMap_HCM
             }
         }
 
-        // Mở frmThongTinVe
+        // ============================
+        // MỞ FORM THÔNG TIN VÉ
+        // ============================
         private void thôngTinVéToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (_hasTicket)
@@ -153,10 +181,8 @@ namespace MetroMap_HCM
                     _gaDen = gaDen;
                     _loaiVe = loaiVe;
                     _giaVe = giaVe;
-
                     _ngayBatDau = ngayBatDau;
                     _ngayHetHan = ngayHetHan;
-
                     _hasTicket = !string.IsNullOrEmpty(_maVe);
                 };
 
@@ -168,7 +194,5 @@ namespace MetroMap_HCM
                                 "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
-
-        private void ảnhCácTuyếnToolStripMenuItem_Click(object sender, EventArgs e) => OpenChildForm(new FormAnhCacTuyen());
     }
 }
