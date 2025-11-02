@@ -21,7 +21,6 @@ namespace MetroMap_HCM
             LoadTuyenCombo();
             LoadDanhSachGa();
 
-            // Căn giữa DataGridView
             Control parent = dgvGa.Parent;
             void Center() => dgvGa.Left = (parent.ClientSize.Width - dgvGa.Width) / 2;
             this.Resize += (s, ev) => Center();
@@ -41,13 +40,13 @@ namespace MetroMap_HCM
         private void LoadDanhSachGa()
         {
             dgvGa.DataSource = _gaService.GetAll()
-                .Select(item => new
+                .Select(g => new
                 {
-                    item.MaGa,
-                    item.TenGa,
-                    item.MaTuyen,
-                    TenTuyen = item.Tuyen.TenTuyen,
-                    item.ThuTu
+                    g.MaGa,
+                    g.TenGa,
+                    g.MaTuyen,
+                    TenTuyen = g.Tuyen.TenTuyen,
+                    g.ThuTu
                 })
                 .ToList();
         }
@@ -65,7 +64,7 @@ namespace MetroMap_HCM
         }
 
         // =========================
-        // ===== THÊM GA MỚI ======
+        // ===== THÊM GA ===========
         // =========================
         private void btnThem_Click(object sender, EventArgs e)
         {
@@ -73,38 +72,9 @@ namespace MetroMap_HCM
             {
                 string maGa = txtMaGa.Text.Trim();
                 string tenGa = txtTenGa.Text.Trim();
-<<<<<<< HEAD
-                string maTuyen = cboTuyen.SelectedValue.ToString();
-                int? thuTu = int.TryParse(txtThuTu.Text, out int tt) ? tt : (int?)null;
-
-                if (string.IsNullOrWhiteSpace(maGa) || string.IsNullOrWhiteSpace(tenGa) || thuTu == null)
-                {
-                    MessageBox.Show("Vui lòng nhập đầy đủ Mã ga, Tên ga và Thứ tự!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
-
-                // Kiểm tra trùng mã ga
-                bool trungMa = _gaService.GetAll().Any(ga => ga.MaGa.Equals(maGa, StringComparison.OrdinalIgnoreCase));
-                if (trungMa)
-                {
-                    MessageBox.Show("Mã ga đã tồn tại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                // Kiểm tra trùng thứ tự trong cùng tuyến
-                bool trungThuTu = _gaService.GetAll().Any(ga => ga.MaTuyen == maTuyen && ga.ThuTu == thuTu);
-                if (trungThuTu)
-                {
-                    MessageBox.Show("Thứ tự ga này đã tồn tại trong tuyến! Vui lòng chọn thứ tự khác.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                var gaMoi = new Ga
-=======
                 string maTuyen = cboTuyen.SelectedValue?.ToString();
                 string thuTuText = txtThuTu.Text.Trim();
 
-                
                 if (string.IsNullOrEmpty(maGa) ||
                     string.IsNullOrEmpty(tenGa) ||
                     string.IsNullOrEmpty(maTuyen) ||
@@ -115,7 +85,6 @@ namespace MetroMap_HCM
                     return;
                 }
 
-                
                 if (!int.TryParse(thuTuText, out int thuTu))
                 {
                     MessageBox.Show("Thứ tự phải là số nguyên!",
@@ -123,8 +92,9 @@ namespace MetroMap_HCM
                     return;
                 }
 
-                
                 var danhSachGa = _gaService.GetAll();
+
+                // Kiểm tra trùng mã ga
                 if (danhSachGa.Any(x => x.MaGa.Equals(maGa, StringComparison.OrdinalIgnoreCase)))
                 {
                     MessageBox.Show("Mã ga đã tồn tại! Vui lòng nhập mã khác.",
@@ -132,9 +102,15 @@ namespace MetroMap_HCM
                     return;
                 }
 
-                
-                Ga ga = new Ga
->>>>>>> c27a5c22ebd170b5498a2a51fb71a22309757a27
+                // Kiểm tra trùng thứ tự trong cùng tuyến
+                if (danhSachGa.Any(x => x.MaTuyen == maTuyen && x.ThuTu == thuTu))
+                {
+                    MessageBox.Show("Thứ tự này đã tồn tại trong tuyến! Vui lòng chọn thứ tự khác.",
+                                    "Trùng thứ tự", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                var gaMoi = new Ga
                 {
                     MaGa = maGa,
                     TenGa = tenGa,
@@ -142,11 +118,7 @@ namespace MetroMap_HCM
                     ThuTu = thuTu
                 };
 
-<<<<<<< HEAD
                 _gaService.Add(gaMoi);
-=======
-                _gaService.Add(ga);
->>>>>>> c27a5c22ebd170b5498a2a51fb71a22309757a27
                 LoadDanhSachGa();
                 MessageBox.Show("Thêm ga thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 ClearInput();
@@ -166,24 +138,37 @@ namespace MetroMap_HCM
             {
                 string maGa = txtMaGa.Text.Trim();
                 string tenGa = txtTenGa.Text.Trim();
-                string maTuyen = cboTuyen.SelectedValue.ToString();
-                int? thuTu = int.TryParse(txtThuTu.Text, out int tt) ? tt : (int?)null;
+                string maTuyen = cboTuyen.SelectedValue?.ToString();
+                string thuTuText = txtThuTu.Text.Trim();
 
-                if (string.IsNullOrWhiteSpace(maGa) || string.IsNullOrWhiteSpace(tenGa) || thuTu == null)
+                if (string.IsNullOrEmpty(maGa) ||
+                    string.IsNullOrEmpty(tenGa) ||
+                    string.IsNullOrEmpty(maTuyen) ||
+                    string.IsNullOrEmpty(thuTuText))
                 {
-                    MessageBox.Show("Vui lòng nhập đầy đủ Mã ga, Tên ga và Thứ tự!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Vui lòng nhập đầy đủ Mã ga, Tên ga, Tuyến và Thứ tự!",
+                                    "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                // Kiểm tra trùng thứ tự trong cùng tuyến (ngoại trừ chính nó)
-                bool trungThuTu = _gaService.GetAll().Any(ga => ga.MaTuyen == maTuyen && ga.ThuTu == thuTu && !ga.MaGa.Equals(maGa, StringComparison.OrdinalIgnoreCase));
-                if (trungThuTu)
+                if (!int.TryParse(thuTuText, out int thuTu))
                 {
-                    MessageBox.Show("Thứ tự này đã tồn tại trong tuyến! Không thể cập nhật.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Thứ tự phải là số nguyên!",
+                                    "Dữ liệu không hợp lệ", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
-                var gaCanSua = new Ga
+                var danhSachGa = _gaService.GetAll();
+
+                // Kiểm tra trùng thứ tự trong cùng tuyến (trừ chính ga đang sửa)
+                if (danhSachGa.Any(x => x.MaTuyen == maTuyen && x.ThuTu == thuTu && !x.MaGa.Equals(maGa, StringComparison.OrdinalIgnoreCase)))
+                {
+                    MessageBox.Show("Thứ tự này đã tồn tại trong tuyến! Không thể cập nhật.",
+                                    "Trùng thứ tự", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                var gaSua = new Ga
                 {
                     MaGa = maGa,
                     TenGa = tenGa,
@@ -191,7 +176,7 @@ namespace MetroMap_HCM
                     ThuTu = thuTu
                 };
 
-                _gaService.Update(gaCanSua);
+                _gaService.Update(gaSua);
                 LoadDanhSachGa();
                 MessageBox.Show("Cập nhật thông tin ga thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -231,22 +216,18 @@ namespace MetroMap_HCM
             }
         }
 
-        // =========================
-        // ===== TÌM KIẾM ==========
-        // =========================
         private void btnTim_Click(object sender, EventArgs e)
         {
             string tuKhoa = txtTim.Text.Trim().ToLower();
             var ketQua = _gaService.GetAll()
-                .Where(ga => ga.TenGa.ToLower().Contains(tuKhoa) ||
-                             ga.MaGa.ToLower().Contains(tuKhoa))
-                .Select(ga => new
+                .Where(g => g.TenGa.ToLower().Contains(tuKhoa) || g.MaGa.ToLower().Contains(tuKhoa))
+                .Select(g => new
                 {
-                    ga.MaGa,
-                    ga.TenGa,
-                    ga.MaTuyen,
-                    TenTuyen = ga.Tuyen.TenTuyen,
-                    ga.ThuTu
+                    g.MaGa,
+                    g.TenGa,
+                    g.MaTuyen,
+                    TenTuyen = g.Tuyen.TenTuyen,
+                    g.ThuTu
                 })
                 .ToList();
 
