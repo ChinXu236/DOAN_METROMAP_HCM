@@ -49,15 +49,32 @@ namespace MetroMap_HCM.BUS
             }
         }
 
-        public void Delete(string maGa)
+        public void Delete(string maGa, string tenGa)
         {
             using (var db = new Model1())
             {
-                var g = db.Gas.Find(maGa);
-                if (g != null)
+                Ga gaToDelete = null;
+
+                // Nếu có mã ga thì tìm theo mã trước
+                if (!string.IsNullOrEmpty(maGa))
                 {
-                    db.Gas.Remove(g);
+                    gaToDelete = db.Gas.Find(maGa);
+                }
+
+                // Nếu không có mã hoặc không tìm thấy, thử tìm theo tên ga
+                if (gaToDelete == null && !string.IsNullOrEmpty(tenGa))
+                {
+                    gaToDelete = db.Gas.FirstOrDefault(x => x.TenGa == tenGa);
+                }
+
+                if (gaToDelete != null)
+                {
+                    db.Gas.Remove(gaToDelete);
                     db.SaveChanges();
+                }
+                else
+                {
+                    throw new Exception("Không tìm thấy ga để xóa!");
                 }
             }
         }

@@ -110,20 +110,24 @@ namespace MetroMap_HCM
 
         private void btnXoa_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtMaGa.Text))
+            string maGa = txtMaGa.Text.Trim();
+            string tenGa = txtTenGa.Text.Trim();
+
+            if (string.IsNullOrEmpty(maGa) && string.IsNullOrEmpty(tenGa))
             {
-                MessageBox.Show("Vui lòng chọn ga cần xóa!");
+                MessageBox.Show("Vui lòng nhập mã ga hoặc tên ga cần xóa!");
                 return;
             }
 
-            var confirm = MessageBox.Show("Bạn có chắc muốn xóa ga này?",
-                "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            if (confirm == DialogResult.Yes)
+            try
             {
-                _gaService.Delete(txtMaGa.Text.Trim());
+                _gaService.Delete(maGa, tenGa);
+                MessageBox.Show("Xóa thành công!");
                 LoadDanhSachGa();
-                ClearInput();
-                MessageBox.Show("Xóa ga thành công!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
 
