@@ -19,6 +19,7 @@
             this.txtChucVu = new System.Windows.Forms.TextBox();
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.pnlCard = new System.Windows.Forms.Panel();
+            this.picAvatar = new System.Windows.Forms.PictureBox();
             this.pnlRowEmail = new System.Windows.Forms.Panel();
             this.pnlInputEmail = new System.Windows.Forms.Panel();
             this.pnlRowChucVu = new System.Windows.Forms.Panel();
@@ -38,8 +39,8 @@
             this.lblTenNV = new System.Windows.Forms.Label();
             this.lblChucVu = new System.Windows.Forms.Label();
             this.lblSDT = new System.Windows.Forms.Label();
-            this.picAvatar = new System.Windows.Forms.PictureBox();
             this.pnlCard.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picAvatar)).BeginInit();
             this.pnlRowEmail.SuspendLayout();
             this.pnlInputEmail.SuspendLayout();
             this.pnlRowChucVu.SuspendLayout();
@@ -50,7 +51,6 @@
             this.pnlInputMaNV.SuspendLayout();
             this.pnlRowTenNV.SuspendLayout();
             this.pnlInputTenNV.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picAvatar)).BeginInit();
             this.SuspendLayout();
             // 
             // txtMaNV
@@ -102,11 +102,22 @@
             this.pnlCard.Controls.Add(this.lblChucVu);
             this.pnlCard.Controls.Add(this.lblSDT);
             this.pnlCard.Font = new System.Drawing.Font("Times New Roman", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.pnlCard.Location = new System.Drawing.Point(235, 114);
+            this.pnlCard.Location = new System.Drawing.Point(285, 96);
             this.pnlCard.Name = "pnlCard";
             this.pnlCard.Padding = new System.Windows.Forms.Padding(16);
             this.pnlCard.Size = new System.Drawing.Size(1018, 493);
             this.pnlCard.TabIndex = 13;
+            // 
+            // picAvatar
+            // 
+            this.picAvatar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(245)))), ((int)(((byte)(249)))));
+            this.picAvatar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.picAvatar.Location = new System.Drawing.Point(75, 107);
+            this.picAvatar.Name = "picAvatar";
+            this.picAvatar.Size = new System.Drawing.Size(216, 220);
+            this.picAvatar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picAvatar.TabIndex = 14;
+            this.picAvatar.TabStop = false;
             // 
             // pnlRowEmail
             // 
@@ -299,17 +310,6 @@
             this.lblSDT.TabIndex = 4;
             this.lblSDT.Text = "Số điện thoại:";
             // 
-            // picAvatar
-            // 
-            this.picAvatar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(245)))), ((int)(((byte)(249)))));
-            this.picAvatar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.picAvatar.Location = new System.Drawing.Point(75, 107);
-            this.picAvatar.Name = "picAvatar";
-            this.picAvatar.Size = new System.Drawing.Size(216, 220);
-            this.picAvatar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.picAvatar.TabIndex = 14;
-            this.picAvatar.TabStop = false;
-            // 
             // frmTaiKhoanNhanVien
             // 
             this.AcceptButton = this.btnCapNhat;
@@ -322,6 +322,7 @@
             this.Load += new System.EventHandler(this.frmTaiKhoanNhanVien_Load);
             this.pnlCard.ResumeLayout(false);
             this.pnlCard.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.picAvatar)).EndInit();
             this.pnlRowEmail.ResumeLayout(false);
             this.pnlInputEmail.ResumeLayout(false);
             this.pnlInputEmail.PerformLayout();
@@ -337,7 +338,6 @@
             this.pnlRowTenNV.ResumeLayout(false);
             this.pnlInputTenNV.ResumeLayout(false);
             this.pnlInputTenNV.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picAvatar)).EndInit();
             this.ResumeLayout(false);
 
         }
