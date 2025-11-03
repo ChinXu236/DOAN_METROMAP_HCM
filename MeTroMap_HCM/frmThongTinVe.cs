@@ -134,6 +134,7 @@ namespace MeTroMap_HCM
                 lblTrangThai.Text = "Đã hủy ❌";
                 lblNgayBatDau.Text = lblNgayHetHan.Text = "-";
                 btnGiaHan.Enabled = false;
+                btnHuy.Enabled = false;
                 _maVe = _tuyenDi = _tuyenDen = _gaDi = _gaDen = _loaiVe = null;
                 _giaVe = 0;
                 _ngayBatDau = _ngayHetHan = DateTime.MinValue;
