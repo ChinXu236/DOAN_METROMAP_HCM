@@ -12,9 +12,10 @@ namespace MetroMap_HCM.BUS
         {
             using (var db = new Model1())
             {
-                // Include để nạp collection Gas (tên property trong Tuyen là Gas)
-                return db.Tuyens.Include(t => t.LichTrinhs).ToList();
-                // materialize trước khi db.Dispose()
+                return db.Tuyens
+                         .Include(t => t.LichTrinhs) // load các lịch trình nếu cần
+                         .OrderBy(t => t.MaTuyen)
+                         .ToList();
             }
         }
 
@@ -30,6 +31,11 @@ namespace MetroMap_HCM.BUS
         {
             using (var db = new Model1())
             {
+                // ⚠️ Kiểm tra trùng mã tuyến trước khi thêm
+                bool exists = db.Tuyens.Any(x => x.MaTuyen.Equals(t.MaTuyen, StringComparison.OrdinalIgnoreCase));
+                if (exists)
+                    throw new Exception($"Mã tuyến '{t.MaTuyen}' đã tồn tại! Vui lòng nhập mã khác.");
+
                 db.Tuyens.Add(t);
                 db.SaveChanges();
             }
@@ -40,7 +46,9 @@ namespace MetroMap_HCM.BUS
             using (var db = new Model1())
             {
                 var old = db.Tuyens.Find(t.MaTuyen);
-                if (old == null) throw new Exception("Tuyen khong ton tai");
+                if (old == null)
+                    throw new Exception("Tuyến không tồn tại!");
+
                 old.TenTuyen = t.TenTuyen;
                 old.MoTa = t.MoTa;
                 db.SaveChanges();
@@ -51,14 +59,19 @@ namespace MetroMap_HCM.BUS
         {
             using (var db = new Model1())
             {
-                var t = db.Tuyens.Find(ma);
-                if (t != null)
-                {
-                    db.Tuyens.Remove(t);
-                    db.SaveChanges();
-                }
+                var tuyen = db.Tuyens.Find(ma);
+                if (tuyen == null)
+                    throw new Exception("Không tìm thấy tuyến để xóa!");
+
+                // Kiểm tra xem tuyến có ga hay lịch trình không
+                bool coGa = db.Gas.Any(g => g.MaTuyen == ma);
+                bool coLichTrinh = db.LichTrinhs.Any(l => l.MaTuyen == ma);
+                if (coGa || coLichTrinh)
+                    throw new Exception("Không thể xóa tuyến này vì đang chứa ga hoặc lịch trình!");
+
+                db.Tuyens.Remove(tuyen);
+                db.SaveChanges();
             }
         }
-
     }
 }

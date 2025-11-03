@@ -22,7 +22,6 @@ namespace MetroMap_HCM
 
         private void LoadTuyenGrid()
         {
-            // Lấy dữ liệu và chỉ chọn 3 cột cần hiển thị
             var data = _tuyenService.GetAll()
                 .Select(t => new
                 {
@@ -35,7 +34,6 @@ namespace MetroMap_HCM
             dgvTuyen.AutoGenerateColumns = true;
             dgvTuyen.DataSource = data;
 
-            // Đặt lại tiêu đề cột hiển thị
             if (dgvTuyen.Columns["MaTuyen"] != null)
                 dgvTuyen.Columns["MaTuyen"].HeaderText = "Mã Tuyến";
             if (dgvTuyen.Columns["TenTuyen"] != null)
@@ -46,69 +44,114 @@ namespace MetroMap_HCM
 
         private void btnThem_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtMaTuyen.Text) || string.IsNullOrWhiteSpace(txtTenTuyen.Text))
+            try
             {
-                MessageBox.Show("Vui lòng nhập đầy đủ thông tin!");
-                return;
+                string maTuyen = txtMaTuyen.Text.Trim();
+                string tenTuyen = txtTenTuyen.Text.Trim();
+                string moTa = txtMoTa.Text.Trim();
+
+                if (string.IsNullOrWhiteSpace(maTuyen) || string.IsNullOrWhiteSpace(tenTuyen))
+                {
+                    MessageBox.Show("Vui lòng nhập đầy đủ Mã tuyến và Tên tuyến!",
+                                    "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                var tuyenMoi = new Tuyen
+                {
+                    MaTuyen = maTuyen,
+                    TenTuyen = tenTuyen,
+                    MoTa = moTa
+                };
+
+                _tuyenService.Add(tuyenMoi);
+                LoadTuyenGrid();
+                ClearInput();
+
+                MessageBox.Show("Thêm tuyến mới thành công!",
+                                "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-
-            var t = new Tuyen
+            catch (Exception ex)
             {
-                MaTuyen = txtMaTuyen.Text.Trim(),
-                TenTuyen = txtTenTuyen.Text.Trim(),
-                MoTa = txtMoTa.Text.Trim()
-            };
-
-            _tuyenService.Add(t);
-            LoadTuyenGrid();
-            MessageBox.Show("Thêm tuyến thành công!");
+                // ⚠️ Hiển thị thông báo lỗi rõ ràng ra MessageBox
+                MessageBox.Show(ex.Message,
+                                "Lỗi khi thêm tuyến",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnSua_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtMaTuyen.Text))
+            try
             {
-                MessageBox.Show("Vui lòng chọn tuyến cần sửa!");
-                return;
+                string maTuyen = txtMaTuyen.Text.Trim();
+                string tenTuyen = txtTenTuyen.Text.Trim();
+                string moTa = txtMoTa.Text.Trim();
+
+                if (string.IsNullOrWhiteSpace(maTuyen))
+                {
+                    MessageBox.Show("Vui lòng chọn tuyến cần sửa!",
+                                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                var tuyen = new Tuyen
+                {
+                    MaTuyen = maTuyen,
+                    TenTuyen = tenTuyen,
+                    MoTa = moTa
+                };
+
+                _tuyenService.Update(tuyen);
+                LoadTuyenGrid();
+                MessageBox.Show("Cập nhật tuyến thành công!",
+                                "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-
-            var t = new Tuyen
+            catch (Exception ex)
             {
-                MaTuyen = txtMaTuyen.Text.Trim(),
-                TenTuyen = txtTenTuyen.Text.Trim(),
-                MoTa = txtMoTa.Text.Trim()
-            };
-
-            _tuyenService.Update(t);
-            LoadTuyenGrid();
-            MessageBox.Show("Cập nhật tuyến thành công!");
+                MessageBox.Show(ex.Message,
+                                "Lỗi khi cập nhật tuyến",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnXoa_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtMaTuyen.Text))
+            try
             {
-                MessageBox.Show("Vui lòng chọn tuyến cần xóa!");
-                return;
+                string maTuyen = txtMaTuyen.Text.Trim();
+
+                if (string.IsNullOrWhiteSpace(maTuyen))
+                {
+                    MessageBox.Show("Vui lòng chọn tuyến cần xóa!",
+                                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                var confirm = MessageBox.Show("Bạn có chắc muốn xóa tuyến này?",
+                    "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
+                if (confirm == DialogResult.Yes)
+                {
+                    _tuyenService.Delete(maTuyen);
+                    LoadTuyenGrid();
+                    ClearInput();
+                    MessageBox.Show("Xóa tuyến thành công!",
+                                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
-
-            var confirm = MessageBox.Show("Bạn có chắc muốn xóa tuyến này?",
-                "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-            if (confirm == DialogResult.Yes)
+            catch (Exception ex)
             {
-                _tuyenService.Delete(txtMaTuyen.Text.Trim());
-                LoadTuyenGrid();
-                MessageBox.Show("Xóa tuyến thành công!");
+                MessageBox.Show(ex.Message,
+                                "Lỗi khi xóa tuyến",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void btnTaiLai_Click(object sender, EventArgs e)
         {
             LoadTuyenGrid();
-            txtMaTuyen.Clear();
-            txtTenTuyen.Clear();
-            txtMoTa.Clear();
+            ClearInput();
         }
 
         private void dgvTuyen_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -120,6 +163,13 @@ namespace MetroMap_HCM
                 txtTenTuyen.Text = row.Cells["TenTuyen"].Value?.ToString();
                 txtMoTa.Text = row.Cells["MoTa"].Value?.ToString();
             }
+        }
+
+        private void ClearInput()
+        {
+            txtMaTuyen.Clear();
+            txtTenTuyen.Clear();
+            txtMoTa.Clear();
         }
     }
 }
