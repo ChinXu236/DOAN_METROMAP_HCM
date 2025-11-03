@@ -155,11 +155,6 @@ namespace MetroMap_HCM
                     .OrderBy(l => l.GioXuatPhat)
                     .ToList();
 
-                if (!danhSachLich.Any())
-                {
-                    MessageBox.Show("Không có lịch trình trong khung giờ 05:00 - 23:55!", "Thông báo");
-                    return;
-                }
 
                 int tongPhut = ketQuaChiTiet.Sum(d => d.ThoiGianDenTiepTheo);
                 TimeSpan gioXPCanTim;
